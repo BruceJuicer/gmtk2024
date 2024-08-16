@@ -6,7 +6,9 @@
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
   ],
   "configs": {
-    "children": [],
+    "children": [
+      {"children":[],"name":"DEV_MODE",},
+    ],
     "name": "Default",
   },
   "defaultScriptType": 1,
@@ -34,10 +36,20 @@
     "IDEVersion": "2023.8.2.108",
   },
   "resources": [
-    {"id":{"name":"rm_game","path":"rooms/rm_game/rm_game.yy",},},
+    {"id":{"name":"spr_pix","path":"sprites/spr_pix/spr_pix.yy",},},
+    {"id":{"name":"scr_gamedata","path":"scripts/scr_gamedata/scr_gamedata.yy",},},
+    {"id":{"name":"scr_input","path":"scripts/scr_input/scr_input.yy",},},
+    {"id":{"name":"scr_player","path":"scripts/scr_player/scr_player.yy",},},
+    {"id":{"name":"obj_superinit","path":"objects/obj_superinit/obj_superinit.yy",},},
+    {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
+    {"id":{"name":"scr_util","path":"scripts/scr_util/scr_util.yy",},},
+    {"id":{"name":"scr_scrollbar","path":"scripts/scr_scrollbar/scr_scrollbar.yy",},},
+    {"id":{"name":"scr_buttons","path":"scripts/scr_buttons/scr_buttons.yy",},},
+    {"id":{"name":"spr_screen_ctrl","path":"objects/spr_screen_ctrl/spr_screen_ctrl.yy",},},
+    {"id":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},},
   ],
   "RoomOrderNodes": [
-    {"roomId":{"name":"rm_game","path":"rooms/rm_game/rm_game.yy",},},
+    {"roomId":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},},
   ],
   "templateType": "game",
   "TextureGroups": [

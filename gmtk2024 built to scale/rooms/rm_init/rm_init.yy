@@ -1,7 +1,7 @@
 {
   "resourceType": "GMRoom",
   "resourceVersion": "1.0",
-  "name": "rm_game",
+  "name": "rm_init",
   "creationCodeFile": "",
   "inheritCode": false,
   "inheritCreationOrder": false,
@@ -25,10 +25,10 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "roomSettings": {
-    "Height": 768,
+    "Height": 360,
     "inheritRoomSettings": false,
     "persistent": false,
-    "Width": 1366,
+    "Width": 640,
   },
   "sequenceId": null,
   "views": [
