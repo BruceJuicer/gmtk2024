@@ -1,0 +1,3 @@
+
+#macro GLOBAL_GRAV 0.03
+#macro GLOBAL_FRIC 0.98

@@ -76,7 +76,7 @@ function ButtonStruct(_type = eButtonType.BUTTON) constructor {
 	tab_prev = undefined;
 		
 	//customisation
-	c_bg = #594154; //#605E84; //#7676AA;
+	c_bg = c_ltgrey;
 	c_txt = c_white;
 	bg_spr = spr_pix;
 	bg_spr_ii = 0;
@@ -474,13 +474,6 @@ function ButtonDraw(_b, _text = undefined, drawoffset_x = 0, drawoffset_y = 0, a
 		draw_set_halign(fa_left);
 	}
 	
-	if (_b.type == eButtonType.CHECKBOX) {
-		var _spr_i = _b.checked;
-		draw_sprite_stretched_ext(spr_ui_checkmark, _spr_i, _b.x + _butoff_x, _b.y + _butoff_y, _b.w, _b.h, c_black, alpha);
-		_txt_x = _b.x + _b.w + 6;
-		draw_set_halign(fa_left);
-	}
-	
 	//if we're text input, show the inputted text if there is any, otherwise show the func defined text
 	if (_is_textinput){
 		if (_b.text != "") _text = _b.text;
@@ -502,7 +495,7 @@ function ButtonDraw(_b, _text = undefined, drawoffset_x = 0, drawoffset_y = 0, a
 	//hovered
 	if (_b.state == eButtonState.HOVERED || _b.state == eButtonState.PUSHED_IN){
 		gpu_set_blendmode(bm_add);
-		draw_sprite_stretched_ext(_b.bg_spr, _b.bg_spr_ii, _dx, _dy, _b.w, _b.h, C_HOVER_HIGHLIGHT, 0.2 * alpha);
+		draw_sprite_stretched_ext(_b.bg_spr, _b.bg_spr_ii, _dx, _dy, _b.w, _b.h, c_white, 0.2 * alpha);
 		gpu_set_blendmode(bm_normal);
 	}
 }
