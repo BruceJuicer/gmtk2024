@@ -1,6 +1,6 @@
 
-#macro LEVEL_W 10
-#macro LEVEL_H 10
+//#macro LEVEL_W 10
+//#macro LEVEL_H 10
 
 #macro TOWER_W 2
 #macro TOWER_H 2
@@ -29,6 +29,10 @@ function IsoToPixel(xx, yy, zz){
 
 
 function TowerGetTileAt(xx, yy, zz){
+	if (xx < 0 || xx >= TOWER_W)	 return noone;
+	if (yy < 0 || yy >= TOWER_H)	 return noone;
+	if (zz < 0 || zz >= TOWER_Z_MAX) return noone;
+	
 	return obj_level.arr_tower_layers[zz][xx + yy * TOWER_W];
 }
 

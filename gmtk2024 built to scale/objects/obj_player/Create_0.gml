@@ -8,3 +8,6 @@ z = 0;
 tx = 0;
 ty = 0;
 tz = 0;
+
+jetpack_fuel = 100;
+
