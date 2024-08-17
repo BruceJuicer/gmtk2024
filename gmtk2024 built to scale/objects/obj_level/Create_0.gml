@@ -14,3 +14,7 @@ TowerSetTileAt(1, 1, 0);
 TowerSetTileAt(1, 0, 1);
 
 depth = 80;
+
+repeat(irandom(10)) {
+	instance_create_layer(irandom_range(-200, 200), irandom_range(-200, 200), "instances", obj_goblin);	
+}
