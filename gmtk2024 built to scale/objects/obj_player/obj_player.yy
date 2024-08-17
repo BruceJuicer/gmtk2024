@@ -13,10 +13,7 @@
     "name": "Objects",
     "path": "folders/Objects.yy",
   },
-  "parentObjectId": {
-    "name": "par_phys_ent",
-    "path": "objects/par_phys_ent/par_phys_ent.yy",
-  },
+  "parentObjectId": null,
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,
@@ -33,8 +30,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_goat",
-    "path": "sprites/spr_goat/spr_goat.yy",
+    "name": "spr_testspr",
+    "path": "sprites/spr_testspr/spr_testspr.yy",
   },
   "spriteMaskId": null,
   "visible": true,
