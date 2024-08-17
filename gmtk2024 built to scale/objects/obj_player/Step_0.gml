@@ -7,13 +7,14 @@ tz = z / TILE_V;
 
 depth = -y + 4 - z;
 
-var _tile_z = floor(tz);
-var _tile_at_feet =	TowerGetTileAt(floor(tx), floor(ty), _tile_z - 1);
+//var _tile_z = floor(tz - 0.5);
+var _tile_z = floor(0);
+var _tile_at_feet =	TowerGetTileAt(floor(tx), floor(ty), _tile_z);
 
 
 
 //gravity
-if (zspd > -2) z -= 0.25;
+if (zspd > -2) zspd -= 0.1;
 
 
 x += hspd;
@@ -29,9 +30,14 @@ if (z + zspd <= 0){
 	zspd = 0;
 }
 
+
+TowerGetTileAt(0, 0, 0).image_blend = c_white;
+
 if (_tile_at_feet != noone){
-	if (z <= _tile_at_feet.z){
-		z = _tile_at_feet.z;
+	_tile_at_feet.image_blend = c_red;
+	
+	if (z <= _tile_at_feet.dz){
+		z = _tile_at_feet.dz;
 		zspd = 0;
 	}
 }
