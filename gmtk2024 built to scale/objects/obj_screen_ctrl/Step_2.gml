@@ -58,6 +58,11 @@ Input_Tick();
 
 //debug buts
 if (DEV_MODE && keyboard_check(vk_control)){
-
+	if (keyboard_check_pressed(ord("P"))){
+		show_debug_overlay(!is_debug_overlay_open());
+	}
+	if (keyboard_check_pressed(ord("R"))){
+		game_restart();
+	}
 }
 

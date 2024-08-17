@@ -1,21 +1,19 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_player",
+  "name": "obj_tile_test",
   "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,},
   ],
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "TILES",
+    "path": "folders/Objects/TILES.yy",
   },
   "parentObjectId": {
-    "name": "par_phys_ent",
-    "path": "objects/par_phys_ent/par_phys_ent.yy",
+    "name": "par_tile",
+    "path": "objects/par_tile/par_tile.yy",
   },
   "persistent": false,
   "physicsAngularDamping": 0.1,
@@ -33,8 +31,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_goat",
-    "path": "sprites/spr_goat/spr_goat.yy",
+    "name": "spr_tile_test",
+    "path": "sprites/spr_tile_test/spr_tile_test.yy",
   },
   "spriteMaskId": null,
   "visible": true,

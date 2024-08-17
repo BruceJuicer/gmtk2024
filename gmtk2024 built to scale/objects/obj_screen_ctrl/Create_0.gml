@@ -1,5 +1,5 @@
-#macro PREFERRED_W 640
-#macro PREFERRED_H 400
+#macro PREFERRED_W 320
+#macro PREFERRED_H 180
 
 global.vieww = PREFERRED_W;
 global.viewh = PREFERRED_H;
