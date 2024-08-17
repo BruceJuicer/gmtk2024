@@ -14,8 +14,7 @@ function DrawRectCols(xx, yy, width, height, colour1, colour2, colour3, colour4)
 
 /// @description draws text using the given colour without having to specify it 4 times
 function DrawTextColour(xx, yy, str, colour, alpha){
-	var _scale = scale_text_for_font(1);
-	draw_text_transformed_color(xx, yy, str, _scale, _scale, 0, colour, colour, colour, colour, alpha)
+	draw_text_transformed_color(xx, yy, str, 1, 1, 0, colour, colour, colour, colour, alpha)
 }
 
 /// @description draws text like DrawTextColour but automatically also draws the text's shadow too
@@ -38,14 +37,12 @@ function DrawTextShadowColour(xx, yy, str, colour, shadow_colour, alpha){
 
 /// @description draws text using the given colour without having to specify it 4 times, EXT edition
 function DrawTextColourExt(xx, yy, str, sep, max_w, colour, alpha){
-	var _scale = scale_text_for_font(1);
-	draw_text_ext_transformed_color(xx, yy, str, sep, max_w, _scale, _scale, 0, colour, colour, colour, colour, alpha)
+	draw_text_ext_transformed_color(xx, yy, str, sep, max_w, 1, 1, 0, colour, colour, colour, colour, alpha)
 }
 
 /// @description draws text using the given colour without having to specify it 4 times, EXT edition
 function DrawTextColourShadowTrans_Ext(xx, yy, str, sep, max_w, colour, shadow_colour = c_black, alpha = 1, scale = 1, xoff = 1, yoff = 1){
 	max_w /= scale;
-	scale = scale_text_for_font(scale);
 	xoff *= scale;
 	yoff *= scale;
 	draw_text_ext_transformed_color(xx + xoff, yy + yoff, str, sep, max_w, scale, scale, 0, shadow_colour, shadow_colour, shadow_colour, shadow_colour, alpha)
@@ -55,7 +52,7 @@ function DrawTextColourShadowTrans_Ext(xx, yy, str, sep, max_w, colour, shadow_c
 
 /// @description draws text using the given colour without having to specify it 4 times, scaled edition
 function DrawTextTransColour(xx, yy, str, xscale, yscale, angle, colour, alpha){
-	draw_text_transformed_colour(xx, yy, str, scale_text_for_font(xscale), scale_text_for_font(yscale), angle, colour, colour, colour, colour, alpha);
+	draw_text_transformed_colour(xx, yy, str, xscale, yscale, angle, colour, colour, colour, colour, alpha);
 }
 
 
