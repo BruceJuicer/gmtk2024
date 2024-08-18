@@ -2,6 +2,7 @@
 #macro P_JETPACK_MAX 120
 
 enum ePlayerState {
+	FROZEN,
 	IDLE,
 	ELEVATOR,
 	SPINJUMP,
@@ -72,9 +73,10 @@ function PlayerTickIdle(){
 	
 	//temp, build
 	if (onground && keyboard_check_pressed(ord("X")) && build_in_tower_bounds){
-		TowerSetTileAt(tbuild_x, tbuild_y, floor(tz), obj_tile_test);
-		state = ePlayerState.SPINJUMP;
-		zspd = 2;
+		//TowerSetTileAt(tbuild_x, tbuild_y, floor(tz), obj_tile_test);
+		state = ePlayerState.FROZEN;
+		instance_create_layer(0, 0, "Instances", obj_ui_buildopts);
+		//zspd = 2;
 		//z += TILE_V;
 	}
 	

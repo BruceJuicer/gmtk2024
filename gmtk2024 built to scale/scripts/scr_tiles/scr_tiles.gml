@@ -15,3 +15,13 @@ function Tile() constructor {
 }
 */
 
+
+
+///@desc returns true or false depending on if the thing can be afforded
+function ResCanAfford(arr_res){
+	for (var i = 0; i < array_length(arr_res); i++){
+		if (obj_level.arr_res[i] < arr_res[i]) return false;
+	}
+	
+	return true;
+}

@@ -26,6 +26,7 @@
     {"name":"Tile Sets","order":2,"path":"folders/Tile Sets.yy",},
     {"name":"Timelines","order":8,"path":"folders/Timelines.yy",},
     {"name":"PLAYER","order":11,"path":"folders/Sprites/PLAYER.yy",},
+    {"name":"UI","order":12,"path":"folders/Sprites/UI.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"scr_level","order":8,"path":"scripts/scr_level/scr_level.yy",},

@@ -6,6 +6,8 @@
 #macro TOWER_H 2
 #macro TOWER_Z_MAX 80
 
+//global.game_pause = false;
+
 
 enum eRes {
 	WOOD,
