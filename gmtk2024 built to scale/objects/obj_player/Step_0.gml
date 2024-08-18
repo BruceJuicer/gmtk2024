@@ -16,3 +16,5 @@ switch(state){
 		PlayerTickElevator();
 	break;
 }
+
+PickupRes();

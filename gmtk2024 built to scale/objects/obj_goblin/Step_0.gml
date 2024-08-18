@@ -23,8 +23,8 @@ switch(state) {
 					}
 				} else {
 					if (attack_cooldown <= 0) {
-						var _proj = instance_create_layer(x, y, "instances", obj_gob_proj);
-						_proj.target = target;
+						instance_destroy();
+						var _proj = instance_create_layer(x, y, "instances", obj_gob_proj, {instance_target: target, target: {x : target.x, y : target.y }});
 						attack_cooldown = 120;
 					} else attack_cooldown--;
 				}
