@@ -13,3 +13,5 @@
 event_inherited();
 
 target = EnemyGetTarget();
+attack_cooldown = 120;
+tick = 0;
