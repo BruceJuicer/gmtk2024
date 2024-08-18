@@ -173,9 +173,11 @@ function PlayerTickIdle(){
 		if (zspd > -2) zspd -= 0.1;
 	}
 
-	if (!onground && _use_jetpack && jetpack_fuel > 0){
-		jetpack_fuel --;
-		zspd = 0;
+	if (!onground && _use_jetpack){
+		if (jetpack_fuel > 0){
+			jetpack_fuel --;
+			zspd = 0;
+		}
 	} else {
 		jetpack_fuel = P_JETPACK_MAX;
 	}
