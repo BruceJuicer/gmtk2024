@@ -14,7 +14,8 @@ if (_draw_fhighlight){
 }
 
 
-var _ii = 0;
-if (xdir == -1) _ii = 1;
 
-draw_sprite_ext(sprite_index, _ii, x, y - z, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+sprite_index = spr_player_r;
+if (xdir == -1) sprite_index = spr_player_l;
+
+draw_sprite_ext(sprite_index, image_index, x, y - z, image_xscale, image_yscale, image_angle, image_blend, image_alpha);

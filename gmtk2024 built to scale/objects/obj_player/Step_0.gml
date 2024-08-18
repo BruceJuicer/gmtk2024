@@ -9,7 +9,7 @@ tbuild_x = tx;
 tbuild_y = ty;
 
 switch(state){
-	case ePlayerState.IDLE:
+	case ePlayerState.IDLE: case ePlayerState.SPINJUMP:
 		PlayerTickIdle();
 	break;
 	case ePlayerState.ELEVATOR:

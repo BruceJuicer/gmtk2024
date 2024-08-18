@@ -4,7 +4,7 @@
 enum ePlayerState {
 	IDLE,
 	ELEVATOR,
-	
+	SPINJUMP,
 }
 
 
@@ -19,12 +19,12 @@ function PlayerTickElevator(){
 	obj_player.y = _ppos.y + 4;
 	
 	if (_m_down){
-		if (obj_player.z > 0) obj_player.z -= 1;
+		if (obj_player.z > 0) obj_player.z -= 2;
 		else obj_player.z = 0;
 	}
 	
 	if (_m_up){
-		if (obj_player.z < obj_level.tower_height * TILE_V) obj_player.z += 1;
+		if (obj_player.z < obj_level.tower_height * TILE_V) obj_player.z += 2;
 		else obj_player.z = obj_level.tower_height * TILE_V;
 	}	
 	
@@ -49,7 +49,13 @@ function PlayerTickIdle(){
 	depth = CharGetDepth(y, z);
 
 	var _tile_z = floor(tz - 0.5);
-	var _tile_at_feet =	TowerGetTileAt(tx, ty, _tile_z);
+	var _tile_at_feet =	noone;//TowerGetTileAt(tx, ty, _tile_z);
+	
+	//find the nearest tile under us
+	for (var i = _tile_z; i >= 0; i--){
+		_tile_at_feet = TowerGetTileAt(tx, ty, i);
+		if (instance_exists(_tile_at_feet)) break;
+	}
 
 	//get the tile we're gonna build at	
 	//tbuild_x = tx;
@@ -65,8 +71,11 @@ function PlayerTickIdle(){
 	*/
 	
 	//temp, build
-	if (keyboard_check_pressed(ord("X")) && build_in_tower_bounds){
-		TowerSetTileAt(tbuild_x, tbuild_y, tz, obj_tile_test);
+	if (onground && keyboard_check_pressed(ord("X")) && build_in_tower_bounds){
+		TowerSetTileAt(tbuild_x, tbuild_y, floor(tz), obj_tile_test);
+		state = ePlayerState.SPINJUMP;
+		zspd = 2;
+		//z += TILE_V;
 	}
 	
 	
@@ -153,22 +162,61 @@ function PlayerTickIdle(){
 	}
 	*/
 
+
+	var _use_jetpack = true;
+	if (state == ePlayerState.SPINJUMP || in_tower_bounds) _use_jetpack = false;
+
 	//gravity & jetpack
-	if (jetpack_fuel <= 0){
+	if (jetpack_fuel <= 0 || !_use_jetpack){
 		if (zspd > -2) zspd -= 0.1;
 	}
 
-	if (!onground) jetpack_fuel --;
-	else jetpack_fuel = P_JETPACK_MAX;
+	if (!onground && _use_jetpack && jetpack_fuel > 0){
+		jetpack_fuel --;
+		zspd = 0;
+	} else {
+		jetpack_fuel = P_JETPACK_MAX;
+	}
 
 
 	//------------------------------------------------------------------------------------------------//
 	// collision
 	//----------------------------------------------------------------------------------------------//
-
+	/*
+	var _xcheck = x - 2;
+	if (hspd > 0) _xcheck = x + 2;
+	
+	var _tsub = PixelToIsoSub(_xcheck + hspd, y);
+	var _tcol = TowerGetTileAt(floor(_tsub.x), floor(_tsub.y), tz);
+	
+	if (instance_exists(_tcol) && (floor(_tsub.x) != tx || floor(_tsub.y) != ty)){
+		var _sy = 1;
+		if (y < _tcol.dy + TILE_H/2) _sy = -1;
+		
+		vspd += abs(hspd / 2) * _sy;
+		
+		hspd = 0;
+	}
+	*/
+	
 	x += hspd;
 
+	/*
+	var _ycheck = y - 2;
+	if (vspd > 0) _ycheck = y + 2;
 
+	_tsub = PixelToIsoSub(x, _ycheck + vspd);
+	_tcol = TowerGetTileAt(floor(_tsub.x), floor(_tsub.y), tz);
+	
+	if (instance_exists(_tcol) && (floor(_tsub.x) != tx || floor(_tsub.y) != ty)){
+		var _sx = 1;
+		if (x < _tcol.dx) _sx = -1;
+		
+		hspd += abs(vspd) * _sx;
+
+		vspd = 0;
+	}
+	*/
 
 	y += vspd;
 
@@ -176,7 +224,7 @@ function PlayerTickIdle(){
 
 	//get floor z
 	floor_z = 0;
-	if (_tile_at_feet != noone){
+	if (instance_exists(_tile_at_feet)){
 		floor_z = _tile_at_feet.dz + TILE_V;
 	}
 
@@ -189,6 +237,7 @@ function PlayerTickIdle(){
 		zspd = 0;
 	
 		onground = true;
+		if (state == ePlayerState.SPINJUMP) state = ePlayerState.IDLE;
 	}
 
 	z += zspd;

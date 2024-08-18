@@ -10,8 +10,8 @@ for (var i = 0; i < TOWER_Z_MAX; i++){
 }
 
 
-
-
+//player res
+arr_res = [ 0, 0, 0 ];
 
 
 

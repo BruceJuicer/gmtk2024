@@ -7,6 +7,26 @@
 #macro TOWER_Z_MAX 80
 
 
+enum eRes {
+	WOOD,
+	STONE,
+	GOLD,
+};
+
+
+global.arr_res_info = [
+	{
+		name: "Wood",
+	},
+	{
+		name: "Stone",
+	},
+	{
+		name: "Gold",
+	},
+];
+
+
 
 
 ///@desc convers pixel coords to iso coords (floors to int) returns { x, y }
@@ -51,13 +71,17 @@ function TowerGetTileAt(xx, yy, zz){
 ///@param {real} zz
 ///@param {Asset.GMObject} obj_index
 function TowerSetTileAt(xx, yy, zz, obj_index){
+	if (xx < 0 || xx >= TOWER_W)	 return noone;
+	if (yy < 0 || yy >= TOWER_H)	 return noone;
+	if (zz < 0 || zz >= TOWER_Z_MAX) return noone;
+	
 	//remove old inst if one exists
 	if (instance_exists(obj_level.arr_tower_layers[zz][xx + yy * TOWER_W])) instance_destroy(obj_level.arr_tower_layers[zz][xx + yy * TOWER_W]);
 	
 	//setting to noone
 	if (obj_index == noone){
 		obj_level.arr_tower_layers[zz][xx + yy * TOWER_W] = noone;
-		return;
+		return noone;
 	}
 	
 	//assigning new tile inst

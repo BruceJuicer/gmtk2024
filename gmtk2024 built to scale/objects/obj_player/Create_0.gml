@@ -11,6 +11,11 @@ tx = 0;
 ty = 0;
 tz = 0;
 
+//sub pixel tile positions
+txf = 0;
+tyf = 0;
+tzf = 0;
+
 //the tile we're looking at, to build
 tbuild_x = 0;
 tbuild_y = 0;
