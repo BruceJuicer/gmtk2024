@@ -11,3 +11,8 @@ ty = 0;
 tz = 0;
 z = 0;
 attack_cooldown = 120;
+
+function OnDeath() {
+	var _res = instance_create_layer(x, y, "instances", obj_res, {z : z});
+	_res.image_index = irandom(2);
+}

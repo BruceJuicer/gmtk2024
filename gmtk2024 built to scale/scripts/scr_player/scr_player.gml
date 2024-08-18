@@ -244,3 +244,11 @@ function PlayerTickIdle(){
 
 	z += zspd;
 }
+
+function PickupRes() {
+	var _res = instance_nearest(x, y, obj_res);
+	if (_res != noone && distance_to_object(_res) < 2) {
+		obj_level.arr_res[_res.image_index]++;
+		instance_destroy(_res);
+	}
+}
