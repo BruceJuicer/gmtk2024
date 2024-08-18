@@ -1,13 +1,22 @@
 /// @description init
 
-arr_tower_layers = array_create(TOWER_Z_MAX, array_create(TOWER_W * TOWER_H, noone));
+arr_tower_layers = array_create(TOWER_Z_MAX, []);
 
-//reset tower tiles
-//for (var i = 0; i < array_length(arr_tower_tiles); i++){
-//	arr_tower_tiles[i] = new Tile();
-//}
+tower_height = 0;
 
-TowerSetTileAt(0, 0, 0);
+//fill out tower
+for (var i = 0; i < TOWER_Z_MAX; i++){
+	arr_tower_layers[i] = array_create(TOWER_W * TOWER_H, noone);
+}
+
+
+
+
+
+
+
+
+TowerSetTileAt(0, 0, 0, obj_tile_elevator);
 //TowerSetTileAt(1, 0, 0);
 //TowerSetTileAt(0, 1, 0);
 //TowerSetTileAt(1, 1, 0);
@@ -15,6 +24,14 @@ TowerSetTileAt(0, 0, 0);
 
 depth = 80;
 
-repeat(irandom(10)) {
-	instance_create_layer(irandom_range(-200, 200), irandom_range(-200, 200), "instances", obj_goblin);	
-}
+//repeat(irandom(10)) {
+//	instance_create_layer(irandom_range(-200, 200), irandom_range(-200, 200), "instances", obj_goblin);	
+//}
+
+
+
+//let's add some trees
+instance_create_layer(0, -42, "Instances", obj_wo_tree);
+instance_create_layer(-96, 8, "Instances", obj_wo_tree);
+instance_create_layer(56, 40, "Instances", obj_wo_tree);
+instance_create_layer(64,-12, "Instances", obj_wo_tree);

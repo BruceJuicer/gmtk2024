@@ -17,6 +17,14 @@ function PixelToIso(xx, yy){
 	};
 }
 
+///@desc convers pixel coords to iso coords (does not floor to int) returns { x, y }
+function PixelToIsoSub(xx, yy){	
+	return {
+		x: xx / TILE_W + yy / TILE_H, 
+		y: yy / TILE_H - xx / TILE_W
+	};
+}
+
 
 ///@desc convers iso coords to pixel coords, returns { x, y }
 function IsoToPixel(xx, yy, zz){
@@ -37,9 +45,23 @@ function TowerGetTileAt(xx, yy, zz){
 }
 
 
-
-function TowerSetTileAt(xx, yy, zz){
-	var _inst = instance_create_layer(xx, yy, "Instances", obj_tile_test);
+///@desc also returns the created instance, use noone to set a tile to nothing
+///@param {real} xx
+///@param {real} yy
+///@param {real} zz
+///@param {Asset.GMObject} obj_index
+function TowerSetTileAt(xx, yy, zz, obj_index){
+	//remove old inst if one exists
+	if (instance_exists(obj_level.arr_tower_layers[zz][xx + yy * TOWER_W])) instance_destroy(obj_level.arr_tower_layers[zz][xx + yy * TOWER_W]);
+	
+	//setting to noone
+	if (obj_index == noone){
+		obj_level.arr_tower_layers[zz][xx + yy * TOWER_W] = noone;
+		return;
+	}
+	
+	//assigning new tile inst
+	var _inst = instance_create_layer(xx, yy, "Instances", obj_index);
 	_inst.z = zz;
 	
 	var _ppos = IsoToPixel(xx, yy, 0);
@@ -47,7 +69,9 @@ function TowerSetTileAt(xx, yy, zz){
 	_inst.dy = _ppos.y - zz * TILE_V;
 	_inst.dz = zz * TILE_V;
 	
-	_inst.depth = (-_ppos.y) - zz;
+	_inst.depth = -(_ppos.y + 4) - zz;
 	
 	obj_level.arr_tower_layers[zz][xx + yy * TOWER_W] = _inst;
+	
+	return _inst;
 }

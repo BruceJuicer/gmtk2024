@@ -36,12 +36,16 @@ function CreateGroupedButton(arr_struct_group, _type = eButtonType.BUTTON) {
 }
 
 /// @desc creates generic button struct & returns it
-function ButtonStruct(_type = eButtonType.BUTTON) constructor {
+/// @param {real} _type
+/// @param {bool} _ui
+function ButtonStruct(_type = eButtonType.BUTTON, _ui = true) constructor {
 	global.button_id_iterator ++;
 	x = -2048;
 	y = -2048;
 	w = 0;
 	h = 0;
+	ui = _ui; // this button is rendered on gui layer
+	
 	//TextLookup = txt;
 	text = "";//GetLocalString(txt);
 	state = eButtonState.IDLE;
@@ -136,6 +140,11 @@ function ButtonTick(button, xx, yy, ww, hh, allow_interaction = true){
 	
 	var _mx = mouse_x;
 	var _my = mouse_y;
+	if (button.ui){
+		_mx = device_mouse_x_to_gui(0);
+		_my = device_mouse_y_to_gui(0);
+	}
+	
 	var _just_released = false;
 	
 	//button is active!
