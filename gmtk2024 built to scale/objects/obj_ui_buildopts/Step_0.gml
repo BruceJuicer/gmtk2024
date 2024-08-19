@@ -55,11 +55,14 @@ if (_nav_sel){
 			}
 			
 			//spawn tile
-			TowerSetTileAt(obj_player.tbuild_x, obj_player.tbuild_y, floor(obj_player.tz), arr_build_opts[hov_opt].tile_obj);
+			var _tile_inst = TowerSetTileAt(obj_player.tbuild_x, obj_player.tbuild_y, floor(obj_player.tz), obj_tile_buildsite);
+			_tile_inst.tile_become = arr_build_opts[hov_opt].tile_obj;
+			_tile_inst.sprite_index = arr_build_opts[hov_opt].icon_spr;
 
 			//player do jumpy
-			obj_player.zspd = 2;
-			obj_player.state = ePlayerState.SPINJUMP;
+			//obj_player.zspd = 2;
+			//obj_player.state = ePlayerState.SPINJUMP;
+			obj_player.state = ePlayerState.IDLE;
 			
 			state = -1;
 		} else {

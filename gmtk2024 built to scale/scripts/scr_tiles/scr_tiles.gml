@@ -25,3 +25,21 @@ function ResCanAfford(arr_res){
 	
 	return true;
 }
+
+
+
+function TileHurt(tile, dmg){
+	if (obj_level.tower_collapsing) return;
+	if (!instance_exists(tile)) return;
+	
+	tile.hp -= dmg;
+	
+	if (tile.hp <= 0){
+		TowerSetTileAt(tile.x, tile.y, tile.z, noone);
+	}	
+}
+
+
+function TileGetDepth(py, pz){
+	return (-py - pz / 8) - 2;
+}

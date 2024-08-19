@@ -37,3 +37,14 @@ function EnemyGetTarget() {
 	}
 	return _closest;
 }
+
+
+function EnemyHurt(enemy, dmg, attacker = noone){
+	
+	enemy.hp -= dmg;
+	
+	
+	if (enemy.hp <= 0){
+		instance_destroy(enemy);
+	}
+}

@@ -1,5 +1,8 @@
 {
-  "FolderOrderSettings": [],
+  "FolderOrderSettings": [
+    {"name":"PROJ","order":6,"path":"folders/Objects/PROJ.yy",},
+    {"name":"PROJ","order":13,"path":"folders/Sprites/PROJ.yy",},
+  ],
   "ResourceOrderSettings": [
     {"name":"scr_level","order":8,"path":"scripts/scr_level/scr_level.yy",},
     {"name":"rm_game","order":2,"path":"rooms/rm_game/rm_game.yy",},
@@ -13,9 +16,12 @@
     {"name":"spr_goat","order":1,"path":"sprites/spr_goat/spr_goat.yy",},
     {"name":"scr_gamedata","order":5,"path":"scripts/scr_gamedata/scr_gamedata.yy",},
     {"name":"fnt_base","order":1,"path":"fonts/fnt_base/fnt_base.yy",},
+    {"name":"obj_tile_buildsite","order":4,"path":"objects/obj_tile_buildsite/obj_tile_buildsite.yy",},
     {"name":"spr_tile_gun","order":4,"path":"sprites/spr_tile_gun/spr_tile_gun.yy",},
+    {"name":"spr_tile_wood","order":5,"path":"sprites/spr_tile_wood/spr_tile_wood.yy",},
     {"name":"obj_gob_proj","order":2,"path":"objects/obj_gob_proj/obj_gob_proj.yy",},
     {"name":"scr_player","order":3,"path":"scripts/scr_player/scr_player.yy",},
+    {"name":"obj_depth_mark","order":5,"path":"objects/obj_depth_mark/obj_depth_mark.yy",},
     {"name":"spr_player_l","order":1,"path":"sprites/spr_player_l/spr_player_l.yy",},
     {"name":"spr_tile_white","order":3,"path":"sprites/spr_tile_white/spr_tile_white.yy",},
     {"name":"obj_superinit","order":3,"path":"objects/obj_superinit/obj_superinit.yy",},
@@ -33,10 +39,14 @@
     {"name":"scr_scrollbar","order":2,"path":"scripts/scr_scrollbar/scr_scrollbar.yy",},
     {"name":"obj_ui_buildopts","order":2,"path":"objects/obj_ui_buildopts/obj_ui_buildopts.yy",},
     {"name":"scr_enemy","order":9,"path":"scripts/scr_enemy/scr_enemy.yy",},
+    {"name":"obj_e_dummy","order":3,"path":"objects/obj_e_dummy/obj_e_dummy.yy",},
+    {"name":"obj_proj_gbeam","order":1,"path":"objects/obj_proj_gbeam/obj_proj_gbeam.yy",},
     {"name":"scr_buttons","order":4,"path":"scripts/scr_buttons/scr_buttons.yy",},
     {"name":"obj_screen_ctrl","order":2,"path":"objects/obj_screen_ctrl/obj_screen_ctrl.yy",},
+    {"name":"spr_res_icons","order":1,"path":"sprites/spr_res_icons/spr_res_icons.yy",},
     {"name":"spr_testspr","order":5,"path":"sprites/spr_testspr/spr_testspr.yy",},
     {"name":"obj_cam","order":1,"path":"objects/obj_cam/obj_cam.yy",},
     {"name":"obj_wave_controller","order":4,"path":"objects/obj_wave_controller/obj_wave_controller.yy",},
+    {"name":"obj_tile_wood","order":5,"path":"objects/obj_tile_wood/obj_tile_wood.yy",},
   ],
 }

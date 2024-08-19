@@ -8,6 +8,8 @@ tz = z / TILE_V;
 tbuild_x = tx;
 tbuild_y = ty;
 
+depth = CharGetDepth(y, z);
+
 switch(state){
 	case ePlayerState.IDLE: case ePlayerState.SPINJUMP:
 		PlayerTickIdle();

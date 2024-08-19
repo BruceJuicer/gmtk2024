@@ -16,39 +16,36 @@ function PlayerTickElevator(){
 	
 	//put player in elevator
 	var _ppos = IsoToPixel(0, 0, 0);
-	obj_player.x = _ppos.x;
-	obj_player.y = _ppos.y + 4;
+	x = _ppos.x;
+	y = _ppos.y + 4;
+	
+	floor_z = tz;
+	onground = true;
 	
 	if (_m_down){
-		if (obj_player.z > 0) obj_player.z -= 2;
-		else obj_player.z = 0;
+		if (z > 0) z -= 2;
+		else z = 0;
 	}
 	
 	if (_m_up){
-		if (obj_player.z < obj_level.tower_height * TILE_V) obj_player.z += 2;
-		else obj_player.z = obj_level.tower_height * TILE_V;
+		if (z < obj_level.tower_height * TILE_V) z += 2;
+		else z = obj_level.tower_height * TILE_V;
 	}	
 	
 	//leave
 	if (keyboard_check_pressed(ord("Z"))){
-		obj_player.state = ePlayerState.IDLE;
-		
-		//leave ele
-		var _ppos = IsoToPixel(2, 2, 0);
-		obj_player.x = _ppos.x;
-		obj_player.y = _ppos.y + 4;	
-		obj_player.hspd = 0;
-		obj_player.vspd = 0.5;
+		state = ePlayerState.IDLE;
 
-		obj_player.z = floor(obj_player.z / TILE_V) * TILE_V;
+		y += 2;
+		hspd = 0;
+		vspd = 0;
+		zspd = 0;
 	}	
 }
 
 
 ///@self obj_player
 function PlayerTickIdle(){
-	depth = CharGetDepth(y, z);
-
 	var _tile_z = floor(tz - 0.5);
 	var _tile_at_feet =	noone;//TowerGetTileAt(tx, ty, _tile_z);
 	
@@ -57,6 +54,16 @@ function PlayerTickIdle(){
 		_tile_at_feet = TowerGetTileAt(tx, ty, i);
 		if (instance_exists(_tile_at_feet)) break;
 	}
+	
+	//are we within the towers bounds?
+	in_tower_bounds = true;
+	if (tx < 0 || tx >= TOWER_W || ty < 0 || ty >= TOWER_H) in_tower_bounds = false;
+
+	//are we building within the towers bounds?
+	build_in_tower_bounds = true;
+	if (tbuild_x < 0 || tbuild_x >= TOWER_W || tbuild_y < 0 || tbuild_y >= TOWER_H) build_in_tower_bounds = false;	
+	
+	image_speed = 0;
 
 	//get the tile we're gonna build at	
 	//tbuild_x = tx;
@@ -71,35 +78,42 @@ function PlayerTickIdle(){
 	else if (floor(_tpos_f.y + 0.4) != ty) tbuild_y = floor(_tpos_f.y + 0.4);
 	*/
 	
-	//temp, build
-	if (onground && keyboard_check_pressed(ord("X")) && build_in_tower_bounds){
-		//TowerSetTileAt(tbuild_x, tbuild_y, floor(tz), obj_tile_test);
-		state = ePlayerState.FROZEN;
-		instance_create_layer(0, 0, "Instances", obj_ui_buildopts);
-		//zspd = 2;
-		//z += TILE_V;
+	//the tile we may be stood inside
+	build_blocked = false;
+	var _tile_at_body = TowerGetTileAt(tx, ty,  floor(tz + 0.25));
+	if (instance_exists(_tile_at_body) || !onground || !build_in_tower_bounds) build_blocked = true;
+	
+	//build
+	if (keyboard_check_pressed(ord("X"))){		
+		if (!build_blocked){
+			//TowerSetTileAt(tbuild_x, tbuild_y, floor(tz), obj_tile_test);
+			state = ePlayerState.FROZEN;
+			instance_create_layer(0, 0, "Instances", obj_ui_buildopts);
+			//zspd = 2;
+			//z += TILE_V;
+		} else {
+			//dmg tile (todo: and give refund after please)
+			TileHurt(_tile_at_body, 2);
+		}
 	}
 	
+	//temp, destroy
+	if (onground && keyboard_check_pressed(vk_delete) && build_in_tower_bounds){
+		TowerSetTileAt(tbuild_x, tbuild_y, floor(tz), noone);
+	}
+
 	
-	
-	//are we within the towers bounds?
-	in_tower_bounds = true;
-	if (tx < 0 || tx >= TOWER_W || ty < 0 || ty >= TOWER_H) in_tower_bounds = false;
-
-	//are we building within the towers bounds?
-	build_in_tower_bounds = true;
-	if (tbuild_x < 0 || tbuild_x >= TOWER_W || tbuild_y < 0 || tbuild_y >= TOWER_H) build_in_tower_bounds = false;
-
-
-	if (in_tower_bounds){
-		//entered a block?
-		//if (onground && TowerGetTileAt(tx, ty, tz) != noone){
-		//	state = ePlayerState.ELEVATOR;
-		//}
-		if (keyboard_check_pressed(ord("Z"))){
+	if (keyboard_check_pressed(ord("Z"))){
+		if (in_tower_bounds){
 			state = ePlayerState.ELEVATOR;
+			//entered a block?
+			//if (onground && TowerGetTileAt(tx, ty, tz) != noone){
+			//	state = ePlayerState.ELEVATOR;
+			//}
+		} else {
+			jetpack_fuel = 0;
 		}
-	}	
+	}
 	
 	//------------------------------------------------------------------------------------------------//
 	// movement
@@ -130,13 +144,17 @@ function PlayerTickIdle(){
 	if (_m_up){
 		_moveDirX += lengthdir_x(1,90);
 		_moveDirY += lengthdir_y(1,90);
+		ydir = -1;
 	}
 	if (_m_down){
 		_moveDirX += lengthdir_x(1,270);
 		_moveDirY += lengthdir_y(1,270);
+		ydir = 1;
 	}
+	
+	var _mdist = point_distance(0,0,_moveDirX,_moveDirY);
 
-	if (point_distance(0,0,_moveDirX,_moveDirY) > 0){
+	if (_mdist > 0){
 		var _dir = point_direction(0,0,_moveDirX,_moveDirY);
 	
 		hspd += lengthdir_x(_move_acc, _dir);
@@ -145,6 +163,12 @@ function PlayerTickIdle(){
 
 	hspd *= _fric;
 	vspd *= _fric;
+	
+	if (_mdist <= 0 || !onground){
+		image_index = 1-onground;
+	} else {
+		image_speed = 1;
+	}
 
 	/*
 	if (!_m_left && !_m_right){	

@@ -14,7 +14,9 @@ for (var i = 0; i < TOWER_Z_MAX; i++){
 arr_res = [ 0, 0, 0 ];
 
 
-
+tower_collapsing = false;
+tower_collapse_z = 0;
+tower_collapse_timer = 0;
 
 TowerSetTileAt(0, 0, 0, obj_tile_elevator);
 //TowerSetTileAt(1, 0, 0);

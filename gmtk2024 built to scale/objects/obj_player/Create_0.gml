@@ -21,6 +21,7 @@ tbuild_x = 0;
 tbuild_y = 0;
 
 xdir = 1;
+ydir = 1;
 
 jetpack_fuel = P_JETPACK_MAX;
 
@@ -29,3 +30,4 @@ onground = false;
 
 in_tower_bounds = false;
 build_in_tower_bounds = false;
+build_blocked = false;

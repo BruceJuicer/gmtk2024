@@ -23,9 +23,16 @@ arr_build_opts = [
 		arr_res_cost: [ 0, 0, 0 ],
 	},
 	{
+		tile_obj: obj_tile_wood,
+		icon_spr: spr_tile_wood,
+		name: "Wood Wall",
+		desc: "Defensive wall tile.",
+		arr_res_cost: [ 0, 0, 0 ],
+	},
+	{
 		tile_obj: obj_tile_test,
 		icon_spr: spr_tile_test,
-		name: "Wall",
+		name: "Stone Wall",
 		desc: "Solid, tough wall tile.",
 		arr_res_cost: [ 0, 0, 0 ],
 	},

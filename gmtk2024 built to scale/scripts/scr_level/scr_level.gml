@@ -2,6 +2,9 @@
 //#macro LEVEL_W 10
 //#macro LEVEL_H 10
 
+//'radius' of level (distance from tower in all directions, square not actually circular)
+#macro LEVEL_R 4
+
 #macro TOWER_W 2
 #macro TOWER_H 2
 #macro TOWER_Z_MAX 80
@@ -81,7 +84,10 @@ function TowerSetTileAt(xx, yy, zz, obj_index){
 	if (instance_exists(obj_level.arr_tower_layers[zz][xx + yy * TOWER_W])) instance_destroy(obj_level.arr_tower_layers[zz][xx + yy * TOWER_W]);
 	
 	//setting to noone
-	if (obj_index == noone){
+	if (obj_index == noone){		
+		//check for integrity
+		TowerCheckIntegrity(zz);
+		
 		obj_level.arr_tower_layers[zz][xx + yy * TOWER_W] = noone;
 		return noone;
 	}
@@ -92,12 +98,40 @@ function TowerSetTileAt(xx, yy, zz, obj_index){
 	
 	var _ppos = IsoToPixel(xx, yy, 0);
 	_inst.dx = _ppos.x;
-	_inst.dy = _ppos.y - zz * TILE_V;
+	_inst.dy = _ppos.y;
 	_inst.dz = zz * TILE_V;
 	
-	_inst.depth = -(_ppos.y + 4) - zz;
+	//_inst.depth = -(_ppos.y + 4) - zz;
+	_inst.depth = TileGetDepth(_inst.dy, _inst.dz);
 	
 	obj_level.arr_tower_layers[zz][xx + yy * TOWER_W] = _inst;
 	
 	return _inst;
+}
+
+
+function TowerCheckIntegrity(zz){
+	if (obj_level.tower_height <= zz) return;
+	
+	var _integrity = 0;
+	
+	for (var i = 0; i < TOWER_W * TOWER_H; i++){
+		if (instance_exists(obj_level.arr_tower_layers[zz][i])) _integrity ++;
+	}
+	
+	if (_integrity > 1) return;
+	
+	//uh oh!
+	
+	//make sure there are no tiles on this layer anymore
+	for (var i = 0; i < TOWER_W * TOWER_H; i++){
+		if (instance_exists(obj_level.arr_tower_layers[zz][i])){
+			instance_destroy(obj_level.arr_tower_layers[zz][i]);
+			obj_level.arr_tower_layers[zz][i] = noone;
+		}
+	}
+	
+	obj_level.tower_collapsing = true;
+	obj_level.tower_collapse_timer = 0;
+	obj_level.tower_collapse_z = zz;	
 }

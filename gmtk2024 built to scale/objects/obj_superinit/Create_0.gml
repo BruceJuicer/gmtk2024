@@ -8,3 +8,5 @@ alarm[0] = 1;
 
 //gc_target_frame_time(200);
 //gc_collect();
+
+randomise();

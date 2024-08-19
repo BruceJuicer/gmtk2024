@@ -8,6 +8,4 @@ dz = z;
 
 hp = 6;
 
-function OnHPDown() {
-	if (hp <= 0) instance_destroy();	
-}
+tick = 0;

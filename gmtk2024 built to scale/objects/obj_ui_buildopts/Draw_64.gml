@@ -27,10 +27,11 @@ for (var i = 0; i < array_length(arr_build_opts); i++){
 	draw_set_halign(fa_left);
 	
 	//cost
-	if (i == 0) continue;
-	
+	if (i == 0) continue;	
 	for (var j = 0; j < array_length(_opt.arr_res_cost); j++){
 		var _cy = _yy + _hh - 32 + j * 10;
+		
+		draw_sprite_ext(spr_res_icons, j, _xx + 8, _cy + 10, 1, 1, 0, _c, fadein);	
 		DrawTextColourShadow(_xx + 16, _cy, _opt.arr_res_cost[j], _c, fadein);
 	}
 }
