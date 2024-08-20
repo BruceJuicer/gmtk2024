@@ -16,6 +16,7 @@ no_gravity_height = 5;
 for (var i = 0; i < TOWER_Z_MAX; i++){
 	arr_tower_layers[i] = array_create(TOWER_W * TOWER_H, noone);
 	arr_layer_enemies[i] = array_create(0, noone);
+	arr_layer_items[i] = array_create(0, noone);	
 	arr_layer_wo[i] = array_create(0, noone);
 }
 

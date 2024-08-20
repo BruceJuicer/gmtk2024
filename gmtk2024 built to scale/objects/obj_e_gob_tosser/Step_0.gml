@@ -84,8 +84,8 @@ switch(state){
 		
 		//wait
 		substate ++;
-		if (substate >= 64){
-			substate = 24 + irandom(56);
+		if (substate >= 48){
+			substate = 24 + irandom(48);
 			state = eEnemyState.WALK_TO_POS;
 		}		
 	break;
