@@ -106,6 +106,7 @@ function EnemyHurt(enemy, dmg, attacker = noone){
 	
 	if (enemy.hp <= 0){
 		instance_destroy(enemy);
+		audio_play_sound(sfx_death, 0, 0, random_range(0.8, 0.9), 0, random_range(0.7, 1.0));
 	}
 }
 

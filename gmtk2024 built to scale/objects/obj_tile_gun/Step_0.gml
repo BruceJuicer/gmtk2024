@@ -14,7 +14,7 @@ if (tick >= 180){
 		if (_enemy.ty > y * 4) continue;
 		
 		ShootProj(obj_proj_gbeam, dx, dy, dz, _enemy);		
-		
+		audio_play_sound(sfx_arrow, 0, 0, random_range(0.7,0.9), 0, random_range(0.85,1.1));
 		break;
 	}
 	

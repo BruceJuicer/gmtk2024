@@ -24,3 +24,4 @@ arr_build_opts = [
 	eTileType.HEAVY_WALL,
 	eTileType.HEAVY_GUN,
 ];
+audio_play_sound(sfx_menutoggle, 0, 0, 1, 0, 1);
