@@ -33,6 +33,7 @@ if (_nav_l){
 		hov_opt = array_length(arr_build_opts)-1;
 		hov_opt_dx = array_length(arr_build_opts) - 0.5;
 	}
+	audio_play_sound(sfx_menunav, 0, 0, 1, 0, 1);
 }
 
 if (_nav_r){
@@ -41,10 +42,12 @@ if (_nav_r){
 		hov_opt = 0;
 		hov_opt_dx = -0.5;
 	}
+	audio_play_sound(sfx_menunav, 0, 0, 1, 0, 1);
 }
 
 if (_nav_sel){
 	if (hov_opt == 0){
+		audio_play_sound(sfx_menutoggle, 0, 0, 0.8, 0, 0.7);
 		obj_player.state = ePlayerState.IDLE;
 		state = -1;
 	} else {
@@ -61,7 +64,8 @@ if (_nav_sel){
 			var _tile_inst = TowerSetTileAt(obj_player.tbuild_x, obj_player.tbuild_y, floor(obj_player.tz), obj_tile_buildsite);
 			_tile_inst.tile_become = _tileinfo.tile_obj;
 			_tile_inst.sprite_index = _tileinfo.icon_spr;
-
+	
+			audio_play_sound(sfx_build, 0, 0, random_range(0.9,1.0), 0, random_range(0.9, 1.0));
 			//player do jumpy
 			//obj_player.zspd = 2;
 			//obj_player.state = ePlayerState.SPINJUMP;
@@ -71,11 +75,13 @@ if (_nav_sel){
 		} else {
 			//can't afford!!
 			complain_timer = 1;
+			audio_play_sound(sfx_build_toomuch, 0, 0, 0.8, 0, 0.7);
 		}
 	}
 }
 
 if (_nav_close){
+	audio_play_sound(sfx_menutoggle, 0, 0, 0.8, 0, 0.7);
 	obj_player.state = ePlayerState.IDLE;
 	state = -1;
 }

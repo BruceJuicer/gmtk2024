@@ -242,7 +242,10 @@ function PlayerTickIdle(){
 		if (jetpack_fuel > 0){
 			jetpack_fuel --;
 			zspd = 0;
-			
+			if (!audio_is_playing(sfx_jetpack)) {
+				var _p = random_range(0.9, 1.1) * (max(0.3, jetpack_fuel/P_JETPACK_MAX));
+				audio_play_sound(sfx_jetpack, 0, 0, random_range(0.9,1.0), 0, _p);	
+			}
 			if (jetpack_fuel % 8 == 0){
 				var _fx = FxMisc(noone, x, y, z, depth + 2, 20, eFxFlags.POS_DEPTH);
 				FxSetSpr(_fx, spr_proj_gbeam, 0, 1, 1, 1, #8080C0, 1);
@@ -323,7 +326,7 @@ function PlayerTickIdle(){
 	if (zspd <= 0 && z + zspd <= floor_z){
 		z = floor_z;
 		zspd = 0;
-	
+		
 		onground = true;
 		if (state == ePlayerState.SPINJUMP) state = ePlayerState.IDLE;
 	}
@@ -355,6 +358,7 @@ function PlayerTickPickupRes() {
 
 			obj_level.arr_res[_item.image_index] += _item.amount;
 			instance_destroy(_item);
+			audio_play_sound(sfx_resget, 0, 0, random_range(0.75,0.9), 0, random_range(0.8, 0.9));
 		}
 	}	
 }

@@ -22,3 +22,5 @@ arr_build_opts = [
 	eTileType.WALL,
 	eTileType.GUN,
 ];
+
+audio_play_sound(sfx_menutoggle, 0, 0, 1, 0, 1);

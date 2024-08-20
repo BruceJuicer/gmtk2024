@@ -29,4 +29,5 @@ zlayer_i = 0;
 
 function OnDeath() {
 	ItemResSpawn(x, y, z, irandom(2), 1);
+	audio_play_sound(sfx_death, 0, 0, random_range(0.7,0.9), 0, random_range(0.7, 1.1));
 }
