@@ -4,15 +4,15 @@ DrawRectCol(x, y, width, height, c_black, fadein * 0.6);
 
 
 var _selector_c = #246852;
-var _selector_a = 0.5;
+var _selector_a = 0.75;
 if (complain_timer > 0){
 	_selector_c = c_red;
-	_selector_a = complain_timer;
+	_selector_a = complain_timer * 0.8;
 	complain_timer -= 0.1;
 }
 
 //selector
-DrawRectCol(1 + opts_x + hov_opt_dx * opts_spacing, y + 8, opts_spacing - 2, height - 16, _selector_c, _selector_a * 0.5);
+DrawRectCol(1 + opts_x + hov_opt_dx * opts_spacing, y + 8, opts_spacing - 2, height - 16, _selector_c, _selector_a * fadein);
 
 
 //build options

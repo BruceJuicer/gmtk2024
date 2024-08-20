@@ -22,7 +22,7 @@ if (instance_exists(target_obj)){
 	}
 	
 	if (move_time >= 0.9){
-		EnemyHurt(target_obj, 1);
+		EnemyHurt(target_obj, dmg);
 		instance_destroy();
 	}
 } else {

@@ -20,3 +20,5 @@ move_time = 0;
 
 miss = false;
 if (irandom(12) == 0) miss = true;
+
+dmg = 1;

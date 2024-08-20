@@ -21,7 +21,7 @@ for (var i = 0; i < TOWER_Z_MAX; i++){
 
 
 //player res
-arr_res = [ 0, 0, 5 ];
+arr_res = [ 0, 0, 3 ];
 
 
 tower_collapsing = false;

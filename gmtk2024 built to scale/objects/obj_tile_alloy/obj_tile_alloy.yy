@@ -1,20 +1,19 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_e_gob_tosser",
+  "name": "obj_tile_alloy",
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,},
   ],
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "ENEMIES",
-    "path": "folders/Objects/ENEMIES.yy",
+    "name": "TILES",
+    "path": "folders/Objects/TILES.yy",
   },
   "parentObjectId": {
-    "name": "par_enemy",
-    "path": "objects/par_enemy/par_enemy.yy",
+    "name": "par_tile",
+    "path": "objects/par_tile/par_tile.yy",
   },
   "persistent": false,
   "physicsAngularDamping": 0.1,
@@ -32,8 +31,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_enemy_r",
-    "path": "sprites/spr_enemy_r/spr_enemy_r.yy",
+    "name": "spr_tile_alloy_wall",
+    "path": "sprites/spr_tile_alloy_wall/spr_tile_alloy_wall.yy",
   },
   "spriteMaskId": null,
   "visible": true,

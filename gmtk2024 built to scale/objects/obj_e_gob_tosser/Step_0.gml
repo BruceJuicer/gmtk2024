@@ -3,6 +3,14 @@
 // Inherit the parent event
 event_inherited();
 
+//jet fx
+if (z > 0 && obj_level.level_tick % 12 == 0){
+	var _fx = FxMisc(noone, x, y, z, depth + 2, 20, eFxFlags.POS_DEPTH);
+	FxSetSpr(_fx, spr_proj_gbeam, 0, 1, 1, 1, #8080C0, 1);
+	FxSetMotion(_fx, 0, 0, -1, 0.8, 0);
+}
+
+if (tz >= obj_level.tower_height) state = eEnemyState.WALK_AWAY;
 
 switch(state){
 	case eEnemyState.ENTER_LEVEL:
@@ -25,24 +33,30 @@ switch(state){
 		}
 	
 		var _godir = point_direction(x, y, go_x, go_y);
-	
+		
 		if (_xdist > 2) x += lengthdir_x(0.5, _godir);
-		if (_ydist > 2) y += lengthdir_y(0.5, _godir);		
+		if (_ydist > 2) y += lengthdir_y(0.5, _godir);	
+		
+		if (x < 0) sprite_index = spr_enemy_r;
+		else sprite_index = spr_enemy_l;
 	break;
 	case eEnemyState.WALK_AWAY:
 		y ++;
 		if (y >= 180) instance_destroy();
 	break;
 	case eEnemyState.FIND_TARGET:
-		target_obj = EnemyGetTarget(z + irandom(2));
+		var _zcheck = tz;
+		if (tz <= 0) _zcheck = tz + irandom(2);
+		target_obj = EnemyGetTarget(floor(_zcheck));
 		
 		//walk away if we can't find a target...
 		if (!instance_exists(target_obj)){
 			find_target_tries --;
-			if (find_target_tries <= 0) state = eEnemyState.WALK_AWAY;
 		} else {
 			find_target_tries ++;
 		}
+		
+		if (find_target_tries <= 0) state = eEnemyState.WALK_AWAY;
 			
 		EnemyFindRandomGoPos();
 		substate = 8 + irandom(40);

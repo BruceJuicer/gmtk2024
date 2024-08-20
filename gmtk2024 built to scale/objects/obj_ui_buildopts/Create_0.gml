@@ -11,7 +11,7 @@ hov_opt_dx = 0;
 width = 1024;
 height = 0;
 
-opts_spacing = 48;
+opts_spacing = 52;
 opts_x = 0;
 
 complain_timer = 0;
@@ -21,4 +21,6 @@ arr_build_opts = [
 	eTileType.WOOD_WALL,
 	eTileType.WALL,
 	eTileType.GUN,
+	eTileType.HEAVY_WALL,
+	eTileType.HEAVY_GUN,
 ];

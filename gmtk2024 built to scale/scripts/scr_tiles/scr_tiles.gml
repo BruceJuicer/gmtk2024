@@ -9,8 +9,9 @@ enum eTileType {
 	WALL,
 	WOOD_WALL,
 	GUN,
+	HEAVY_GUN,
+	HEAVY_WALL,
 	BUILDSITE,
-	
 }
 
 
@@ -27,7 +28,7 @@ global.arr_tileinfo = [
 		tile_obj: noone,
 		icon_spr: spr_opt_close,
 		name: "Close",
-		desc: "Changed your mind?",
+		desc: "Changed your mind?\n\nYou can also press Z",
 		arr_res_cost: ResCost( 0, 0, 0 ),
 	},
 	{
@@ -55,8 +56,22 @@ global.arr_tileinfo = [
 		tile_obj: obj_tile_gun,
 		icon_spr: spr_tile_gun,
 		name: "Turret",
-		desc: "Periodically shoots at enemies within its vision.",
+		desc: "Periodically shoots at enemies within its vision.\n\nCan shoot one layer above & below.",
 		arr_res_cost: ResCost( 2, 2, 1 ),
+	},
+	{
+		tile_obj: obj_tile_gun_heavy,
+		icon_spr: spr_tile_heavy_gun,
+		name: "Heavy Gun",
+		desc: "Rapidly shoots at enemies within its vision.\n\nCan shoot one layer above & below.",
+		arr_res_cost: ResCost( 2, 4, 6 ),
+	},
+	{
+		tile_obj: obj_tile_alloy,
+		icon_spr: spr_tile_alloy_wall,
+		name: "Alloy Wall",
+		desc: "Phew! Strong stuff...",
+		arr_res_cost: ResCost( 0, 8, 2 ),
 	},
 	{
 		tile_obj: obj_tile_buildsite,

@@ -1,6 +1,6 @@
 /// @description steppe
 
-width = floor(global.vieww / 1.5);
+width = global.vieww - 4;
 height = floor(global.viewh / 2);
 x = global.vieww / 2 - width / 2;
 y = 24 - (1 - fadein) * height;
