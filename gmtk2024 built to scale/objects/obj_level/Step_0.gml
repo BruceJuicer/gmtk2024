@@ -104,3 +104,8 @@ if (tower_collapsing){
 		}
 	}
 }
+
+
+if (tower_height >= tower_win_height){
+	room_goto(rm_win);
+}

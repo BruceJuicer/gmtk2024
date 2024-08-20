@@ -8,6 +8,8 @@ if (z > 0 && obj_level.level_tick % 12 == 0){
 	var _fx = FxMisc(noone, x, y, z, depth + 2, 20, eFxFlags.POS_DEPTH);
 	FxSetSpr(_fx, spr_proj_gbeam, 0, 1, 1, 1, #8080C0, 1);
 	FxSetMotion(_fx, 0, 0, -1, 0.8, 0);
+	image_speed = 0;
+	image_index = 1;
 }
 
 if (tz >= obj_level.tower_height) state = eEnemyState.WALK_AWAY;
@@ -69,7 +71,7 @@ switch(state){
 		}
 		
 		substate ++;
-		if (substate >= 32){
+		if (substate >= 40){
 			state = eEnemyState.ATTACK;
 			substate = 0;
 		}
@@ -82,8 +84,8 @@ switch(state){
 		
 		//wait
 		substate ++;
-		if (substate >= 24){
-			substate = 8 + irandom(40);
+		if (substate >= 64){
+			substate = 24 + irandom(56);
 			state = eEnemyState.WALK_TO_POS;
 		}		
 	break;

@@ -66,6 +66,7 @@
     {"id":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
     {"id":{"name":"scr_phys","path":"scripts/scr_phys/scr_phys.yy",},},
     {"id":{"name":"obj_tile_elevator","path":"objects/obj_tile_elevator/obj_tile_elevator.yy",},},
+    {"id":{"name":"obj_menu_win","path":"objects/obj_menu_win/obj_menu_win.yy",},},
     {"id":{"name":"spr_ui_arrows","path":"sprites/spr_ui_arrows/spr_ui_arrows.yy",},},
     {"id":{"name":"obj_tile_gun","path":"objects/obj_tile_gun/obj_tile_gun.yy",},},
     {"id":{"name":"spr_wo_golderoid","path":"sprites/spr_wo_golderoid/spr_wo_golderoid.yy",},},
@@ -132,6 +133,7 @@
     {"id":{"name":"obj_screen_ctrl","path":"objects/obj_screen_ctrl/obj_screen_ctrl.yy",},},
     {"id":{"name":"spr_wo_stone","path":"sprites/spr_wo_stone/spr_wo_stone.yy",},},
     {"id":{"name":"obj_tile_gun_heavy","path":"objects/obj_tile_gun_heavy/obj_tile_gun_heavy.yy",},},
+    {"id":{"name":"rm_win","path":"rooms/rm_win/rm_win.yy",},},
     {"id":{"name":"spr_ui_prog_base","path":"sprites/spr_ui_prog_base/spr_ui_prog_base.yy",},},
     {"id":{"name":"spr_res_icons","path":"sprites/spr_res_icons/spr_res_icons.yy",},},
     {"id":{"name":"spr_testspr","path":"sprites/spr_testspr/spr_testspr.yy",},},
@@ -147,6 +149,7 @@
     {"roomId":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},},
     {"roomId":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
     {"roomId":{"name":"rm_game","path":"rooms/rm_game/rm_game.yy",},},
+    {"roomId":{"name":"rm_win","path":"rooms/rm_win/rm_win.yy",},},
   ],
   "templateType": "game",
   "TextureGroups": [

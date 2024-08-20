@@ -11,7 +11,10 @@ if (tz != 0){
 	image_alpha = 1;
 	image_blend = c_white;
 	
-	if (tz > obj_player.tz) image_alpha = 0.5;
+	if (tz > obj_player.tz){
+		image_alpha = 0.4;
+		if (tz > obj_player.tz + 3) return;
+	}
 	else if (tz < obj_player.tz) image_blend = c_gray;
 }
 

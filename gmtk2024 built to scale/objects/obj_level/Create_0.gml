@@ -9,7 +9,7 @@ arr_layer_wo = array_create(TOWER_Z_MAX, []);
 tower_height = 0;
 tower_win_height = 14;
 
-no_gravity_height = 6;
+no_gravity_height = 5;
 
 
 //fill out tower

@@ -1,3 +1,4 @@
-but_start = new ButtonStruct();
+/// @description Init
+
 but_quit = new ButtonStruct();
 
