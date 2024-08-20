@@ -42,7 +42,7 @@ global.arr_tileinfo = [
 		icon_spr: spr_tile_test,
 		name: "Stone Wall",
 		desc: "Solid, tough wall tile.",
-		arr_res_cost: ResCost( 0, 8, 0 ),
+		arr_res_cost: ResCost( 0, 6, 0 ),
 	},
 	{
 		tile_obj: obj_tile_wood,

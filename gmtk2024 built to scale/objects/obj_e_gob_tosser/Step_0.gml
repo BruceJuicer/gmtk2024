@@ -30,8 +30,8 @@ switch(state){
 		if (_ydist > 2) y += lengthdir_y(0.5, _godir);		
 	break;
 	case eEnemyState.WALK_AWAY:
-		if (x < 0) x --;
-		else x ++;
+		y ++;
+		if (y >= 180) instance_destroy();
 	break;
 	case eEnemyState.FIND_TARGET:
 		target_obj = EnemyGetTarget(z + irandom(2));
@@ -71,7 +71,6 @@ switch(state){
 		if (substate >= 24){
 			substate = 8 + irandom(40);
 			state = eEnemyState.WALK_TO_POS;
-			substate = 0;
 		}		
 	break;
 }

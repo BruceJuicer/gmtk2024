@@ -1,5 +1,5 @@
 
-#macro P_JETPACK_MAX 160
+#macro P_JETPACK_MAX 200
 
 enum ePlayerState {
 	FROZEN,
@@ -59,6 +59,7 @@ function PlayerTickIdle(){
 	var _tile_at_feet =	noone;//TowerGetTileAt(tx, ty, _tile_z);
 	
 	var _k_use_p = keyboard_check_pressed(ord("Z"));
+	var _k_use_h = keyboard_check(ord("Z"));
 	var _k_act_p = keyboard_check_pressed(ord("X"));
 	
 	//find the nearest tile under us
@@ -107,52 +108,55 @@ function PlayerTickIdle(){
 			instance_create_layer(0, 0, "Instances", obj_ui_buildopts);
 		}
 	} else if (instance_exists(_tile_at_buildpos) && (tbuild_x != 0 || tbuild_y != 0)){
-		//remove a tile
-		context_i = ePlayerContext.MINE;
-		if (_k_act_p){
-			//dmg tile
-			if (_tile_at_buildpos.hp > 1){
-				TileHurt(_tile_at_buildpos, _tile_at_buildpos.hp - 1);
-			} else {
-				//refund player
-				var _tileinfo = global.arr_tileinfo[_tile_at_buildpos.type];
-				for (var i = 0; i < array_length(_tileinfo.arr_res_cost); i++){
-					if (_tileinfo.arr_res_cost[i] <= 0) continue;
-					var _inst = ItemResSpawn(_tile_at_buildpos.dx + irandom_range(-TILE_W, TILE_W)/2, _tile_at_buildpos.dy + TILE_H / 2, _tile_at_buildpos.dz, i, _tileinfo.arr_res_cost[i]);
-					_inst.frozen = true;
+		if (_tile_at_buildpos.type != eTileType.BUILDSITE){
+			//remove a tile
+			context_i = ePlayerContext.MINE;
+			if (_k_act_p){
+				//dmg tile
+				if (_tile_at_buildpos.hp > 1){
+					TileHurt(_tile_at_buildpos, _tile_at_buildpos.hp - 1);
+				} else {
+					//refund player
+					var _tileinfo = global.arr_tileinfo[_tile_at_buildpos.type];
+					for (var i = 0; i < array_length(_tileinfo.arr_res_cost); i++){
+						if (_tileinfo.arr_res_cost[i] <= 0) continue;
+						var _inst = ItemResSpawn(_tile_at_buildpos.dx + irandom_range(-TILE_W, TILE_W)/2, _tile_at_buildpos.dy + TILE_H / 2, _tile_at_buildpos.dz, i, _tileinfo.arr_res_cost[i]);
+						_inst.frozen = true;
+					}
+					TileHurt(_tile_at_buildpos, 1);
 				}
-				TileHurt(_tile_at_buildpos, 1);
 			}
 		}
 	}
 	
 	
-	if (_k_use_p){
-		if (in_tower_bounds){
+	//enter ele
+	if (in_tower_bounds){
+		if (_k_use_p){	
 			state = ePlayerState.ELEVATOR;
 			//entered a block?
 			//if (onground && TowerGetTileAt(tx, ty, tz) != noone){
 			//	state = ePlayerState.ELEVATOR;
 			//}
-		} else {
-			jetpack_fuel = 0;
+		}
+	} else {	
+		//drop with jetpack
+		if (_k_use_h){
+			//jetpack_fuel = 0;
+			z = floor(z - 1);
 		}
 	}
 	
 	//------------------------------------------------------------------------------------------------//
 	// world objects
 	//----------------------------------------------------------------------------------------------//
+	var _wobj = WoGetInRange(x, y, tz, 12);
 	
-	if (z <= 0 && onground){
-		var _tree = instance_nearest(x, y, par_wo);
-		
-		if (instance_exists(_tree) && point_distance(x, y, _tree.x, _tree.y) <= 12){
-			context_i = ePlayerContext.MINE;
+	if (instance_exists(_wobj)){
+		context_i = ePlayerContext.MINE;
 			
-			if (_k_act_p){
-				with(_tree) event_user(0);
-			}
-			
+		if (_k_act_p){
+			with(_wobj) event_user(0);
 		}
 	}
 	
@@ -242,6 +246,11 @@ function PlayerTickIdle(){
 		if (jetpack_fuel > 0){
 			jetpack_fuel --;
 			zspd = 0;
+			
+			//settle on layer
+			if (z > floor(tz) * TILE_V){
+				z -= 1;
+			}
 			
 			if (jetpack_fuel % 8 == 0){
 				var _fx = FxMisc(noone, x, y, z, depth + 2, 20, eFxFlags.POS_DEPTH);

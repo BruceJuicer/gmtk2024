@@ -1,19 +1,20 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_eproj_rock",
+  "name": "obj_wo_asteroid",
   "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":10,"eventType":7,"isDnD":false,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
   ],
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "ENEMIES",
-    "path": "folders/Objects/ENEMIES.yy",
+    "name": "WORLD OBJECTS",
+    "path": "folders/Objects/WORLD OBJECTS.yy",
   },
   "parentObjectId": {
-    "name": "par_proj",
-    "path": "objects/par_proj/par_proj.yy",
+    "name": "par_wo",
+    "path": "objects/par_wo/par_wo.yy",
   },
   "persistent": false,
   "physicsAngularDamping": 0.1,
@@ -31,8 +32,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_proj_tossrock",
-    "path": "sprites/spr_proj_tossrock/spr_proj_tossrock.yy",
+    "name": "spr_wo_asteroid",
+    "path": "sprites/spr_wo_asteroid/spr_wo_asteroid.yy",
   },
   "spriteMaskId": null,
   "visible": true,

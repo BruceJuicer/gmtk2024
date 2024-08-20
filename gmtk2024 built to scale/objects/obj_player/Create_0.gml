@@ -33,3 +33,5 @@ build_in_tower_bounds = false;
 build_blocked = false;
 
 context_i = -1;
+
+//jet_drop_spd = 0;

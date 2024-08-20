@@ -7,6 +7,7 @@ dx = x;
 dy = y;
 dz = z;
 
-hp = 100;
+hp_max = 100;
+hp = hp_max;
 
 tick = 0;
