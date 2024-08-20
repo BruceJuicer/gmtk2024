@@ -122,8 +122,6 @@
     {"id":{"name":"par_wo","path":"objects/par_wo/par_wo.yy",},},
     {"id":{"name":"spr_ts_fg","path":"sprites/spr_ts_fg/spr_ts_fg.yy",},},
     {"id":{"name":"sfx_menunav","path":"sounds/sfx_menunav/sfx_menunav.yy",},},
-    {"id":{"name":"scr_util","path":"scripts/scr_util/scr_util.yy",},},
-    {"id":{"name":"spr_ui_prog_tower","path":"sprites/spr_ui_prog_tower/spr_ui_prog_tower.yy",},},
     {"id":{"name":"sfx_arrow","path":"sounds/sfx_arrow/sfx_arrow.yy",},},
     {"id":{"name":"obj_tile_alloy","path":"objects/obj_tile_alloy/obj_tile_alloy.yy",},},
     {"id":{"name":"scr_util","path":"scripts/scr_util/scr_util.yy",},},
