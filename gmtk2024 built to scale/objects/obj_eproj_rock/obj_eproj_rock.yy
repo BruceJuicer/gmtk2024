@@ -31,8 +31,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_proj_gbeam",
-    "path": "sprites/spr_proj_gbeam/spr_proj_gbeam.yy",
+    "name": "spr_proj_tossrock",
+    "path": "sprites/spr_proj_tossrock/spr_proj_tossrock.yy",
   },
   "spriteMaskId": null,
   "visible": true,

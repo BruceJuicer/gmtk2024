@@ -20,4 +20,5 @@ event_inherited();
 
 type = eTileType.WOOD_WALL;
 
-hp = 4;
+hp_max = 6;
+hp = hp_max;

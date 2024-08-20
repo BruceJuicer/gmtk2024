@@ -13,23 +13,23 @@ if (p_context_fadein > 0){
 }
 
 
+if (!instance_exists(obj_ui_buildopts)){
+	_yy = global.viewh - 40;
 
+	var _txt = "Jet: " + string(obj_player.jetpack_fuel);
+	DrawTextColourShadow(8, _yy, _txt, c_white, 1);
 
-_yy = global.viewh - 40;
+	_yy += 16;
 
-var _txt = "Jet: " + string(obj_player.jetpack_fuel);
-DrawTextColourShadow(8, _yy, _txt, c_white, 1);
+	var _txt_ii = 0;
+	if (obj_player.state == ePlayerState.ELEVATOR) _txt_ii = 3;
+	else if (obj_player.in_tower_bounds) _txt_ii = 1;
+	else if (obj_player.onground == false && obj_player.state == ePlayerState.IDLE) _txt_ii = 2;
 
-_yy += 16;
-
-var _txt_ii = 0;
-if (obj_player.state == ePlayerState.ELEVATOR) _txt_ii = 3;
-else if (obj_player.in_tower_bounds) _txt_ii = 1;
-else if (obj_player.onground == false && obj_player.state == ePlayerState.IDLE) _txt_ii = 2;
-
-DrawTextColourShadow(8, _yy, "Z: " + string(arr_use_txt[_txt_ii]), c_white, 1);
-_yy += 10;
-DrawTextColourShadow(8, _yy, "X: " + string(arr_context_txt[obj_player.context_i + 1]), c_white, 1);
+	DrawTextColourShadow(8, _yy, "Z: " + string(arr_use_txt[_txt_ii]), c_white, 1);
+	_yy += 10;
+	DrawTextColourShadow(8, _yy, "X: " + string(arr_context_txt[obj_player.context_i + 1]), c_white, 1);
+}
 
 
 //resources

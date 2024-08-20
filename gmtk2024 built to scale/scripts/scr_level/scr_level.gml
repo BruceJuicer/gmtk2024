@@ -7,7 +7,7 @@
 
 #macro TOWER_W 2
 #macro TOWER_H 2
-#macro TOWER_Z_MAX 80
+#macro TOWER_Z_MAX 64
 
 //global.game_pause = false;
 
@@ -134,4 +134,50 @@ function TowerCheckIntegrity(zz){
 	obj_level.tower_collapsing = true;
 	obj_level.tower_collapse_timer = 0;
 	obj_level.tower_collapse_z = zz;	
+}
+
+
+///@self obj_level
+function LevelAddWorldObj(px, py, tz, _obj_index){
+	var _inst = instance_create_layer(px, py, "Instances", _obj_index);
+	_inst.tz = tz;
+	WoAddToLayer(_inst);
+	return _inst;
+}
+
+
+///@self obj_level
+function LevelTrySpawnWorldObj(worldobj, tz, max_layer_wo = 4){	
+	var _wo_amt = array_length(arr_layer_wo[tz]);
+	
+	if (_wo_amt > max_layer_wo = irandom(2)) return;
+	
+	var _rand_x = -LEVEL_R + irandom(LEVEL_R * 2);
+	var _rand_y = -LEVEL_R + irandom(LEVEL_R * 2);
+		
+	if (_rand_x < 0 || _rand_x > TOWER_W || _rand_y < 0 || _rand_y > TOWER_H){
+		var _ppos = IsoToPixel(_rand_x, _rand_y, 0);
+		//don't be behind tower
+		if (_ppos.y > TILE_H || _ppos.x < -TILE_W || _ppos.x > TILE_W){			
+			var _nobj = WoGetInRange(_ppos.x, _ppos.y, tz, 16);		
+			if (instance_exists(_nobj)) return noone;
+			
+			var _wobj = LevelAddWorldObj(_ppos.x, _ppos.y + TILE_H/2, tz, worldobj);
+			_wobj.shake_amt = 2;
+			return _wobj;
+		}
+	}
+}
+
+
+function WoGetInRange(xx, yy, tz, dist) {	
+	var _arr_wobjs = obj_level.arr_layer_wo[floor(tz)];
+	
+	for (var i = 0; i < array_length(_arr_wobjs); i++){
+		if (!instance_exists(_arr_wobjs[i])) continue;
+		if (abs(_arr_wobjs[i].x - xx) > dist || abs(_arr_wobjs[i].y - yy) > dist) continue;
+		return _arr_wobjs[i];
+	}
+	
+	return noone;
 }

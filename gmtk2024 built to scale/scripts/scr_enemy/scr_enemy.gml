@@ -184,6 +184,34 @@ function ItemAddToLayer(item){
 }
 
 
+function WoRemoveFromLayer(worldobj){
+	if (!instance_exists(worldobj)) return;
+	
+	for (var i = array_length(obj_level.arr_layer_wo[worldobj.zlayer_i])-1; i >= 0; i--){
+		//oops, we've trod on an item that doesn't exist?? remove
+		if (!instance_exists(obj_level.arr_layer_wo[worldobj.zlayer_i][i])){
+			array_delete(obj_level.arr_layer_wo[worldobj.zlayer_i], i, 1);
+		}
+		//we've found the guy! get rid...
+		if (obj_level.arr_layer_wo[worldobj.zlayer_i][i].id == worldobj.id) array_delete(obj_level.arr_layer_wo[worldobj.zlayer_i], i, 1);	
+	}
+	
+	//invalidate my zlayer_i
+	worldobj.zlayer_i = -1;
+}
+
+
+function WoAddToLayer(worldobj){
+	if (!instance_exists(worldobj)) return;
+	var _layer_i = floor(worldobj.tz);
+	if (_layer_i < 0 || _layer_i > TOWER_Z_MAX) return;
+	
+	array_push(obj_level.arr_layer_wo[_layer_i], worldobj);
+	
+	worldobj.zlayer_i = _layer_i;
+}
+
+
 function ShootProj(obj_index, start_x, start_y, start_z, target_obj){
 	//shoot bullet
 	var _bullet = instance_create_layer(start_x, start_y, "Instances", obj_index);

@@ -5,4 +5,6 @@
 event_inherited();
 
 type = eTileType.GUN;
-hp = 18;
+
+hp_max = 18;
+hp = hp_max;

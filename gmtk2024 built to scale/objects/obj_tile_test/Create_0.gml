@@ -7,4 +7,6 @@
 event_inherited();
 
 type = eTileType.WALL;
-hp = 14;
+
+hp_max = 16;
+hp = hp_max;

@@ -13,7 +13,7 @@ move_time += 0.05;
 if (instance_exists(target_obj)){	
 	target_x = target_obj.x;
 	target_y = target_obj.y + 8;
-	target_z = target_obj.z + 0.33;
+	target_z = target_obj.dz + 0.33;
 	
 	//miss randomly
 	if (move_time >= 0.1 && miss){
