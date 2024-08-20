@@ -47,17 +47,20 @@ if (_nav_sel){
 	if (hov_opt == 0){
 		obj_player.state = ePlayerState.IDLE;
 		state = -1;
-	} else {				
-		if (ResCanAfford(arr_build_opts[hov_opt].arr_res_cost)){
+	} else {
+		
+		var _tileinfo = global.arr_tileinfo[arr_build_opts[hov_opt]];
+		
+		if (ResCanAfford(_tileinfo.arr_res_cost)){
 			//buy tile
-			for (var i = 0; i < array_length(arr_build_opts[hov_opt].arr_res_cost); i++){
-				obj_level.arr_res[i] -= arr_build_opts[hov_opt].arr_res_cost[i];
+			for (var i = 0; i < array_length(_tileinfo.arr_res_cost); i++){
+				obj_level.arr_res[i] -= _tileinfo.arr_res_cost[i];
 			}
 			
 			//spawn tile
 			var _tile_inst = TowerSetTileAt(obj_player.tbuild_x, obj_player.tbuild_y, floor(obj_player.tz), obj_tile_buildsite);
-			_tile_inst.tile_become = arr_build_opts[hov_opt].tile_obj;
-			_tile_inst.sprite_index = arr_build_opts[hov_opt].icon_spr;
+			_tile_inst.tile_become = _tileinfo.tile_obj;
+			_tile_inst.sprite_index = _tileinfo.icon_spr;
 
 			//player do jumpy
 			//obj_player.zspd = 2;
@@ -67,7 +70,7 @@ if (_nav_sel){
 			state = -1;
 		} else {
 			//can't afford!!
-			
+			complain_timer = 1;
 		}
 	}
 }

@@ -5,18 +5,16 @@ tx = _tpos.x;
 ty = _tpos.y;
 tz = z / TILE_V;
 
-tbuild_x = tx;
-tbuild_y = ty;
-
 depth = CharGetDepth(y, z);
+
+context_i = -1;
 
 switch(state){
 	case ePlayerState.IDLE: case ePlayerState.SPINJUMP:
 		PlayerTickIdle();
+		PlayerTickPickupRes();
 	break;
 	case ePlayerState.ELEVATOR:
 		PlayerTickElevator();
 	break;
 }
-
-PickupRes();

@@ -13,13 +13,8 @@ if (tick >= 180){
 		if (_enemy.tx > x * 4) continue;
 		if (_enemy.ty > y * 4) continue;
 		
-		//shoot bullet
-		var _bullet = instance_create_layer(dx, dy, "Instances", obj_proj_gbeam);
-		_bullet.z = dz;
-		_bullet.start_x = x;
-		_bullet.start_y = y;
-		_bullet.start_z = _bullet.z;
-		_bullet.target_obj = _enemy;
+		ShootProj(obj_proj_gbeam, dx, dy, dz, _enemy);		
+		
 		break;
 	}
 	

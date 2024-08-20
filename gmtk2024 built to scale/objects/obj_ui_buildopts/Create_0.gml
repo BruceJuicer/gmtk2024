@@ -14,33 +14,11 @@ height = 0;
 opts_spacing = 48;
 opts_x = 0;
 
+complain_timer = 0;
+
 arr_build_opts = [
-	{
-		tile_obj: noone,
-		icon_spr: spr_opt_close,
-		name: "Close",
-		desc: "Changed your mind?",
-		arr_res_cost: [ 0, 0, 0 ],
-	},
-	{
-		tile_obj: obj_tile_wood,
-		icon_spr: spr_tile_wood,
-		name: "Wood Wall",
-		desc: "Defensive wall tile.",
-		arr_res_cost: [ 0, 0, 0 ],
-	},
-	{
-		tile_obj: obj_tile_test,
-		icon_spr: spr_tile_test,
-		name: "Stone Wall",
-		desc: "Solid, tough wall tile.",
-		arr_res_cost: [ 0, 0, 0 ],
-	},
-	{
-		tile_obj: obj_tile_gun,
-		icon_spr: spr_tile_gun,
-		name: "Turret",
-		desc: "Periodically shoots at enemies within its vision.",
-		arr_res_cost: [ 0, 0, 0 ],
-	},
+	eTileType.NONE,
+	eTileType.WOOD_WALL,
+	eTileType.WALL,
+	eTileType.GUN,
 ];

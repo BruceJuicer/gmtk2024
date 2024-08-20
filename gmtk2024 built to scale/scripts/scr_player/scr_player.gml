@@ -1,11 +1,18 @@
 
-#macro P_JETPACK_MAX 120
+#macro P_JETPACK_MAX 160
 
 enum ePlayerState {
 	FROZEN,
 	IDLE,
 	ELEVATOR,
 	SPINJUMP,
+}
+
+
+enum ePlayerContext {
+	BUILD,
+	MINE,
+	DESTROY,
 }
 
 
@@ -16,11 +23,13 @@ function PlayerTickElevator(){
 	
 	//put player in elevator
 	var _ppos = IsoToPixel(0, 0, 0);
-	x = _ppos.x;
-	y = _ppos.y + 4;
+	x = lerp(x, _ppos.x, 0.4);
+	y = lerp(y, _ppos.y + 4, 0.4);
 	
 	floor_z = tz;
-	onground = true;
+	onground = false;
+	
+	build_in_tower_bounds = false;
 	
 	if (_m_down){
 		if (z > 0) z -= 2;
@@ -49,6 +58,9 @@ function PlayerTickIdle(){
 	var _tile_z = floor(tz - 0.5);
 	var _tile_at_feet =	noone;//TowerGetTileAt(tx, ty, _tile_z);
 	
+	var _k_use_p = keyboard_check_pressed(ord("Z"));
+	var _k_act_p = keyboard_check_pressed(ord("X"));
+	
 	//find the nearest tile under us
 	for (var i = _tile_z; i >= 0; i--){
 		_tile_at_feet = TowerGetTileAt(tx, ty, i);
@@ -58,52 +70,64 @@ function PlayerTickIdle(){
 	//are we within the towers bounds?
 	in_tower_bounds = true;
 	if (tx < 0 || tx >= TOWER_W || ty < 0 || ty >= TOWER_H) in_tower_bounds = false;
+	
+	
+	tbuild_x = tx;
+	tbuild_y = ty;
 
+	//get the tile we're gonna build at	if outside tower
+	if (!in_tower_bounds){
+		var _tsub = PixelToIsoSub(x, y);
+		
+		if (_tsub.x > -0.6 && _tsub.y > -0.6 && _tsub.x < TOWER_W + 0.6 && _tsub.y < TOWER_H + 0.6){
+			tbuild_x = floor(clamp(_tsub.x, 0, TOWER_W-1));
+			tbuild_y = floor(clamp(_tsub.y, 0, TOWER_H-1));
+		}
+		
+	}
+	
 	//are we building within the towers bounds?
 	build_in_tower_bounds = true;
 	if (tbuild_x < 0 || tbuild_x >= TOWER_W || tbuild_y < 0 || tbuild_y >= TOWER_H) build_in_tower_bounds = false;	
 	
 	image_speed = 0;
-
-	//get the tile we're gonna build at	
-	//tbuild_x = tx;
-	//tbuild_y = ty;
-	
-	/*
-	var _tpos_f = PixelToIsoSub(x + xdir * 2, y);
-	
-	if (floor(_tpos_f.x - 0.4) != tx)	   tbuild_x = floor(_tpos_f.x - 0.4);
-	else if (floor(_tpos_f.x + 0.4) != tx) tbuild_x = floor(_tpos_f.x + 0.4);
-	else if (floor(_tpos_f.y - 0.4) != ty) tbuild_y = floor(_tpos_f.y - 0.4);
-	else if (floor(_tpos_f.y + 0.4) != ty) tbuild_y = floor(_tpos_f.y + 0.4);
-	*/
 	
 	//the tile we may be stood inside
 	build_blocked = false;
-	var _tile_at_body = TowerGetTileAt(tx, ty,  floor(tz + 0.25));
-	if (instance_exists(_tile_at_body) || !onground || !build_in_tower_bounds) build_blocked = true;
+	var _tile_at_buildpos = TowerGetTileAt(tbuild_x, tbuild_y,  floor(tz + 0.25));
+	if (instance_exists(_tile_at_buildpos) || !onground || !build_in_tower_bounds) build_blocked = true;
 	
-	//build
-	if (keyboard_check_pressed(ord("X"))){		
-		if (!build_blocked){
-			//TowerSetTileAt(tbuild_x, tbuild_y, floor(tz), obj_tile_test);
+
+	//build	
+	if (!build_blocked){
+		//build a tile
+		context_i = ePlayerContext.BUILD;
+		if (_k_act_p){
 			state = ePlayerState.FROZEN;
 			instance_create_layer(0, 0, "Instances", obj_ui_buildopts);
-			//zspd = 2;
-			//z += TILE_V;
-		} else {
-			//dmg tile (todo: and give refund after please)
-			TileHurt(_tile_at_body, 2);
+		}
+	} else if (instance_exists(_tile_at_buildpos) && (tbuild_x != 0 || tbuild_y != 0)){
+		//remove a tile
+		context_i = ePlayerContext.MINE;
+		if (_k_act_p){
+			//dmg tile
+			if (_tile_at_buildpos.hp > 1){
+				TileHurt(_tile_at_buildpos, _tile_at_buildpos.hp - 1);
+			} else {
+				//refund player
+				var _tileinfo = global.arr_tileinfo[_tile_at_buildpos.type];
+				for (var i = 0; i < array_length(_tileinfo.arr_res_cost); i++){
+					if (_tileinfo.arr_res_cost[i] <= 0) continue;
+					var _inst = ItemResSpawn(_tile_at_buildpos.dx + irandom_range(-TILE_W, TILE_W)/2, _tile_at_buildpos.dy + TILE_H / 2, _tile_at_buildpos.dz, i, _tileinfo.arr_res_cost[i]);
+					_inst.frozen = true;
+				}
+				TileHurt(_tile_at_buildpos, 1);
+			}
 		}
 	}
 	
-	//temp, destroy
-	if (onground && keyboard_check_pressed(vk_delete) && build_in_tower_bounds){
-		TowerSetTileAt(tbuild_x, tbuild_y, floor(tz), noone);
-	}
-
 	
-	if (keyboard_check_pressed(ord("Z"))){
+	if (_k_use_p){
 		if (in_tower_bounds){
 			state = ePlayerState.ELEVATOR;
 			//entered a block?
@@ -112,6 +136,23 @@ function PlayerTickIdle(){
 			//}
 		} else {
 			jetpack_fuel = 0;
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------//
+	// world objects
+	//----------------------------------------------------------------------------------------------//
+	
+	if (z <= 0 && onground){
+		var _tree = instance_nearest(x, y, par_wo);
+		
+		if (instance_exists(_tree) && point_distance(x, y, _tree.x, _tree.y) <= 12){
+			context_i = ePlayerContext.MINE;
+			
+			if (_k_act_p){
+				with(_tree) event_user(0);
+			}
+			
 		}
 	}
 	
@@ -201,6 +242,13 @@ function PlayerTickIdle(){
 		if (jetpack_fuel > 0){
 			jetpack_fuel --;
 			zspd = 0;
+			
+			if (jetpack_fuel % 8 == 0){
+				var _fx = FxMisc(noone, x, y, z, depth + 2, 20, eFxFlags.POS_DEPTH);
+				FxSetSpr(_fx, spr_proj_gbeam, 0, 1, 1, 1, #8080C0, 1);
+				FxSetMotion(_fx, 0, 0, -1, 0.8, 0);
+			}
+			
 		}
 	} else {
 		jetpack_fuel = P_JETPACK_MAX;
@@ -227,6 +275,12 @@ function PlayerTickIdle(){
 	}
 	*/
 	
+	var _tsub = PixelToIsoSub(x, y);
+	var _tile_l = (-LEVEL_R - _tsub.y) * (TILE_W / 2);
+	var _tile_r = (TOWER_W + LEVEL_R - _tsub.y) * (TILE_W / 2);	
+	
+	obj_player.x = clamp(obj_player.x, _tile_l, _tile_r);
+	
 	x += hspd;
 
 	/*
@@ -245,6 +299,12 @@ function PlayerTickIdle(){
 		vspd = 0;
 	}
 	*/
+	
+	var _tile_t = (_tsub.x + -LEVEL_R) * (TILE_H / 2);
+	var _tile_b = (_tsub.x + TOWER_H + LEVEL_R) * (TILE_H / 2);
+	
+	obj_player.y = clamp(obj_player.y, _tile_t, _tile_b);
+	
 
 	y += vspd;
 
@@ -271,10 +331,30 @@ function PlayerTickIdle(){
 	z += zspd;
 }
 
-function PickupRes() {
-	var _res = instance_nearest(x, y, obj_res);
-	if (_res != noone && distance_to_object(_res) < 2) {
-		obj_level.arr_res[_res.image_index]++;
-		instance_destroy(_res);
-	}
+function PlayerTickPickupRes() {
+	var _layer_top = min(floor(obj_player.tz) + 1, TOWER_Z_MAX);
+	var _layer_bot = max(floor(obj_player.tz) - 1, 0);
+	
+	//get all items on layers
+	for (var i = _layer_bot; i < _layer_top; i++){
+		for (var j = array_length(obj_level.arr_layer_items[i])-1; j >= 0; j--){
+			var _item = obj_level.arr_layer_items[i][j];
+			if (!instance_exists(_item)) continue;
+			if (!_item.frozen) continue;
+			
+			if (_item.x < x - 8) continue;
+			if (_item.y < y - 8) continue;
+			if (_item.x > x + 8) continue;
+			if (_item.y > y + 8) continue;
+
+			//fx
+			var _fx = FxMisc(noone, _item.x, _item.y, _item.z, -2048, 10, 0x00);
+			FxSetSpr(_fx, spr_res_icons, _item.image_index, 0, 1, 1, #FFFF80, 0.8);
+			FxSetMotion(_fx, 0, 0, 1.5, 0.9, 0);
+			_fx.fade_spd = 0.1;
+
+			obj_level.arr_res[_item.image_index] += _item.amount;
+			instance_destroy(_item);
+		}
+	}	
 }

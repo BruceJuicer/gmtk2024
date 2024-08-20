@@ -1,5 +1,34 @@
 /// @description steppe
 
+level_tick ++;
+
+
+//spawn trees mb
+if (level_tick % 900 == 860){
+	if (instance_number(obj_wo_tree) < 4 + irandom(2)){
+		var _rand_x = -LEVEL_R + irandom(LEVEL_R * 2);
+		var _rand_y = -LEVEL_R + irandom(LEVEL_R * 2);
+		
+		if (_rand_x < 0 || _rand_x > TOWER_W || _rand_y < 0 || _rand_y > TOWER_H){
+			var _ppos = IsoToPixel(_rand_x, _rand_y, 0);
+			var _ntree = instance_nearest(_ppos.x, _ppos.y, par_wo);
+			
+			//don't be behind tower
+			if (_ppos.y > TILE_H || _ppos.x < -TILE_W || _ppos.x > TILE_W){			
+				if (!instance_exists(_ntree) || point_distance(_ppos.x, _ppos.y, _ntree.x, _ntree.y) > 16){
+					var _tree = instance_create_layer(_ppos.x, _ppos.y + TILE_H/2, "Instances", obj_wo_tree);
+					_tree.shake_amt = 2;
+				}
+			}
+		}
+		
+	}
+}
+
+
+//waves
+LevelTickWaves();
+
 
 //see if we need to increase tower size
 var _layer_full = true;
@@ -14,7 +43,6 @@ if (_layer_full){
 	tower_height ++;
 	TowerSetTileAt(0, 0, tower_height, obj_tile_elevator);
 }
-
 
 
 

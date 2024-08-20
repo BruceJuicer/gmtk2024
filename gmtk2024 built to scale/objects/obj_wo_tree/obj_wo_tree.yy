@@ -3,7 +3,7 @@
   "resourceVersion": "1.0",
   "name": "obj_wo_tree",
   "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":10,"eventType":7,"isDnD":false,},
   ],
   "managed": true,
   "overriddenProperties": [],
@@ -11,7 +11,10 @@
     "name": "WORLD OBJECTS",
     "path": "folders/Objects/WORLD OBJECTS.yy",
   },
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "par_wo",
+    "path": "objects/par_wo/par_wo.yy",
+  },
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,

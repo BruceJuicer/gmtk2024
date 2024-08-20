@@ -1,3 +1,4 @@
+/*
 for (var i = 0; i < array_length(obj_wave_controller.enemies); i++) {
 	if (instance_exists(obj_wave_controller.enemies[i])) {
 		if (obj_wave_controller.enemies[i].id == self.id) {
@@ -8,3 +9,4 @@ for (var i = 0; i < array_length(obj_wave_controller.enemies); i++) {
 }
 
 OnDeath();
+*/

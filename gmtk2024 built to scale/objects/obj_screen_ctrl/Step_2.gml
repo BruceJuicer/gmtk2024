@@ -64,5 +64,10 @@ if (DEV_MODE && keyboard_check(vk_control)){
 	if (keyboard_check_pressed(ord("R"))){
 		game_restart();
 	}
+	if (keyboard_check_pressed(ord("M"))){
+		for (var i = 0; i < array_length(obj_level.arr_res); i++){
+			obj_level.arr_res[i] += 10;
+		}
+	}
 }
 

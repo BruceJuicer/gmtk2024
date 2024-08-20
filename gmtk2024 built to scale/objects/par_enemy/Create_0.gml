@@ -1,18 +1,32 @@
 
 hp = 0;
 dmg = 0;
-spd = 1;
-target = noone;
-range = 6;
+//spd = 1;
+target_obj = noone;
+//range = 6;
 in_range = false;
-state = 1
+
+state = 0;
+substate = 0;
+
+z = 0;
+
 tx = 0;
 ty = 0;
 tz = 0;
-z = 0;
+
+//walk to here please
+go_x = 0;
+go_y = 0;
+
 attack_cooldown = 120;
 
+//amount of times the enemy will try to find a target before leaving
+find_target_tries = 5;
+
+//our layer index for the level
+zlayer_i = 0;
+
 function OnDeath() {
-	var _res = instance_create_layer(x, y, "instances", obj_res, {z : z});
-	_res.image_index = irandom(2);
+	ItemResSpawn(x, y, z, irandom(2), 1);
 }
