@@ -26,9 +26,9 @@ if (!instance_exists(obj_ui_buildopts)){
 	else if (obj_player.in_tower_bounds) _txt_ii = 1;
 	else if (obj_player.onground == false && obj_player.state == ePlayerState.IDLE) _txt_ii = 2;
 
-	DrawTextColourShadow(8, _yy, "Z: " + string(arr_use_txt[_txt_ii]), c_white, 1);
+	DrawTextColourShadow(8, _yy, string(chr(global.k_use)) + ": " + string(arr_use_txt[_txt_ii]), c_white, 1);
 	_yy += 10;
-	DrawTextColourShadow(8, _yy, "X: " + string(arr_context_txt[obj_player.context_i + 1]), c_white, 1);
+	DrawTextColourShadow(8, _yy, string(chr(global.k_action)) + ": " + string(arr_context_txt[obj_player.context_i + 1]), c_white, 1);
 }
 
 

@@ -14,7 +14,9 @@ if (last_window_w != window_get_width() || last_window_h != window_get_height())
 	if (window_get_height() % 2 == 1) window_set_size(window_get_width(), window_get_height()+1);
 	
 	//try to scale the screen to a reasonable size
-	var _minscl = min(window_get_width() / PREFERRED_W, window_get_height() / PREFERRED_H);
+	var _prefw = PREFERRED_W * global.s_zoom_scale;
+	var _prefh = PREFERRED_H * global.s_zoom_scale;
+	var _minscl = min(window_get_width() / _prefw, window_get_height() / _prefh);
 	//global.screen_scale = _minscl;
 	global.screen_scale = round(_minscl);
 

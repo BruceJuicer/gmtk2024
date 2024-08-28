@@ -147,3 +147,9 @@ function CopyStruct(struct, recursive_copy = true){
 	}	
 	return _rstruct;
 }
+
+
+///@desc forces obj_screen_ctrl to refresh the window
+function ScreenForceRefresh(){
+	obj_screen_ctrl.last_window_w = 0;
+}

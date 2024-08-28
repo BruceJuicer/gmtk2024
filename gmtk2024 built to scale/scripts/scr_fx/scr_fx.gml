@@ -56,3 +56,8 @@ function FxSetMotion(fxobj, hspd, vspd, zspd, fric, grav){
 	fxobj.fric = fric;
 	fxobj.grav = grav;
 }
+
+
+//function PlaySound(){
+//	
+//}

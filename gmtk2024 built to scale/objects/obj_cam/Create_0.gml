@@ -1,3 +1,3 @@
 /// @description Init
 
-y = 0;
+y = -180;

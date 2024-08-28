@@ -23,8 +23,8 @@ hov_opt_dx = lerp(hov_opt_dx, hov_opt, 0.33);
 
 var _nav_l = keyboard_check_pressed(vk_left);
 var _nav_r = keyboard_check_pressed(vk_right);
-var _nav_sel = keyboard_check_pressed(ord("X"));
-var _nav_close = keyboard_check_pressed(ord("Z"));
+var _nav_sel = keyboard_check_pressed(global.k_action);
+var _nav_close = keyboard_check_pressed(global.k_use);
 
 
 if (_nav_l){

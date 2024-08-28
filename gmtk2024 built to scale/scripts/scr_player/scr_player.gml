@@ -18,8 +18,8 @@ enum ePlayerContext {
 
 ///@self obj_player
 function PlayerTickElevator(){
-	var _m_up	 = keyboard_check(vk_up);
-	var _m_down  = keyboard_check(vk_down);
+	var _m_up	 = keyboard_check(global.k_move_u);
+	var _m_down  = keyboard_check(global.k_move_d);
 
 	//put player in elevator
 	var _ppos = IsoToPixel(0, 0, 0);
@@ -42,7 +42,7 @@ function PlayerTickElevator(){
 	}
 
 	//leave
-	if (keyboard_check_pressed(ord("Z"))){
+	if (keyboard_check_pressed(global.k_use)){
 		state = ePlayerState.IDLE;
 
 		y += 2;
@@ -58,9 +58,9 @@ function PlayerTickIdle(){
 	var _tile_z = floor(tz - 0.5);
 	var _tile_at_feet =	noone;//TowerGetTileAt(tx, ty, _tile_z);
 
-	var _k_use_p = keyboard_check_pressed(ord("Z"));
-	var _k_use_h = keyboard_check(ord("Z"));
-	var _k_act_p = keyboard_check_pressed(ord("X"));
+	var _k_use_p = keyboard_check_pressed(global.k_use);
+	var _k_use_h = keyboard_check(global.k_use);
+	var _k_act_p = keyboard_check_pressed(global.k_action);
 
 	//find the nearest tile under us
 	for (var i = _tile_z; i >= 0; i--){
@@ -164,10 +164,10 @@ function PlayerTickIdle(){
 	// movement
 	//----------------------------------------------------------------------------------------------//
 
-	var _m_up	 = keyboard_check(vk_up);
-	var _m_down  = keyboard_check(vk_down);
-	var _m_left  = keyboard_check(vk_left);
-	var _m_right = keyboard_check(vk_right);
+	var _m_up	 = keyboard_check(global.k_move_u);
+	var _m_down  = keyboard_check(global.k_move_d);
+	var _m_left  = keyboard_check(global.k_move_l);
+	var _m_right = keyboard_check(global.k_move_r);
 
 	//var _maxspd = 1;
 	var _move_acc = 0.25;
